@@ -4,7 +4,7 @@ Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo de
 
 ## Equipe de desenvolvimento
 
-Gabriel Martins
+Gabriel Martins Pinto Coelho
 
 ## Instruções de Instalação, Execução e Acesso
 
