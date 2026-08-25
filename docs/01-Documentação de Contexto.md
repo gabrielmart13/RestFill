@@ -6,12 +6,6 @@ O RESTFILL é um sistema de gestão de estoque desenvolvido inicialmente para re
 Restaurantes podem enfrentar problemas relacionados ao controle de estoque, como desperdício de alimentos, compras excessivas ou insuficientes, dificuldade para acompanhar datas de validade e processos manuais demorados.
 Quando essas informações são controladas de forma desorganizada, o estabelecimento pode ter gastos desnecessários, perder alimentos por vencimento ou desperdício e enfrentar falta de produtos necessários para o funcionamento da cozinha.
 
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
-
 ## Objetivos
 
 Desenvolver um sistema que auxilie o gerente de restaurantes de pequeno e médio porte a controlar o estoque de alimentos, acompanhar validades e planejar compras com base no consumo previsto, reduzindo desperdícios, gastos desnecessários e trabalho manual.
