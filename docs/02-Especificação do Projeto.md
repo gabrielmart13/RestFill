@@ -33,17 +33,19 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Ana Clara  | Uma forma de identificar se uma agência é realmente confiável           | Me sentir mais segura ao contratar seus serviços               |
-|Ana Clara       | Ter um mecanismo eficiente e rápido de comunicação                 | Que eu possa sanar todas as minhas dúvidas rapidamente |
-
-Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
-
-> **Links Úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (User Stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User Stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de Usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 Common User Story Mistakes](https://airfocus.com/blog/user-story-mistakes/)
+| Gerente |	Ter controle de todo meu estoque de produtos |	Evitar desperdícios financeiros e de alimentos
+| Gerente |	Receber alertas de estoque baixo e de validade próxima do fim	| Ser informado quando precisar repor um produto ou quando houver risco de perda por vencimento |
+| Gerente |	Receber previsões de curto e longo prazo de quando os produtos irão acabar |	Saber antecipadamente quando precisarei realizar a compra dos produtos |
+| Gerente |	Poder adicionar e excluir produtos, além de editar as informações dos produtos já cadastrados |	Poder manter o estoque atualizado sempre que necessário |
+| Gerente |	Poder registrar entradas, saídas e perdas de produtos |	Manter um histórico das movimentações e saber por que a quantidade de um produto foi alterada |
+| Gerente |	Poder adicionar no sistema o cardápio semanal do restaurante |	Utilizar o cardápio nas previsões de consumo e nas demais funcionalidades do sistema |
+| Gerente |	Poder informar o consumo médio dos produtos de acordo com o cardápio e o dia da semana |	Permitir que o sistema calcule o consumo previsto dos produtos |
+| Gerente |	Receber automaticamente a previsão de consumo diário dos produtos com base no cardápio |	Facilitar o controle do estoque e reduzir a necessidade de atualizações manuais |
+| Gerente |	Receber previsões de gastos com alimentos para períodos diários, semanais e mensais |	Saber antecipadamente quanto deverá gastar com alimentos |
+| Gerente |	Receber sugestões de compra com base no estoque atual e no consumo previsto |	Planejar antecipadamente a reposição dos produtos |
+| Gerente |	Consultar o histórico de movimentações dos produtos |	Acompanhar as alterações realizadas no estoque e identificar perdas ou consumos |
+| Gerente |	Organizar os produtos em categorias |	Facilitar a localização e o gerenciamento dos produtos |
+| Gerente |	Cadastrar a unidade de medida dos produtos |	Controlar corretamente quantidades como kg, litros e unidades |
 
 ## Requisitos
 
