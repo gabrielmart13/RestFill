@@ -15,22 +15,9 @@ O diagrama de fluxo pode ser desenvolvido com “boxes” que possuem internamen
 
 ![Exemplo de Diagrama de Fluxo](img/diagramafluxo2.jpg)
 
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagramas de Fluxo”.
-
-> **Links Úteis**:
-> - [Fluxograma online: seis sites para fazer gráfico sem instalar nada | Produtividade | TechTudo](https://www.techtudo.com.br/listas/2019/03/fluxograma-online-seis-sites-para-fazer-grafico-sem-instalar-nada.ghtml)
-
-## Wireframes
-
-![Exemplo de Wireframe](img/wireframe-example.png)
-
-Os wireframes são protótipos utilizados no design de interfaces para representar a estrutura de um site e o relacionamento entre suas páginas. Eles funcionam como ilustrações do layout e da disposição dos elementos essenciais da interface.
-
-**Nesta seção, é FUNDAMENTAL indicar, para CADA tela/wireframe proposto, QUAIS REQUISITOS estão sendo contemplados por ela.**
 
 
-> **Links Úteis**:
-> - [Protótipos vs Wireframes](https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/)
+
 > - [Ferramentas de Wireframes](https://rockcontent.com/blog/wireframes/)
 > - [MarvelApp](https://marvelapp.com/developers/documentation/tutorials/)
 > - [Figma](https://www.figma.com/)
