@@ -55,9 +55,24 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| A aplicação deve permitir que o usuário avalie uma agência de intercâmbio com base na sua experiência| ALTA | 
-|RF-002| A aplicação deve permitir que o usuário inclua comentários ao fazer uma avaliação de uma agência de intercâmbio    | ALTA |
-|RF-003| A aplicação deve permitir que o usuário consulte todas as agências de intercâmbio cadastradas ordenando-as com base em suas notas | ALTA |
+|RF-001| A aplicação deve permitir que o usuário adicione produtos ao estoque | ALTA |
+|RF-002| A aplicação deve permitir que o usuário exclua produtos do estoque | ALTA |
+|RF-003| A aplicação deve permitir que o usuário modifique as informações dos produtos cadastrados, incluindo quantidade, validade e custo | ALTA |
+|RF-004| A aplicação deve permitir que o usuário crie categorias para organizar os produtos | ALTA |
+|RF-005| A aplicação deve permitir que o usuário exclua categorias existentes | ALTA |
+|RF-006| A aplicação deve permitir que o usuário modifique categorias existentes | ALTA |
+|RF-007| A aplicação deve permitir que o usuário adicione o cardápio semanal, com as informações de consumo previstas para cada dia da semana | ALTA |
+|RF-008| A aplicação deve permitir que o usuário modifique o cardápio semanal, alterando as receitas e o consumo previsto para cada dia da semana | ALTA |
+|RF-009| A aplicação deve calcular os gastos previstos com produtos em períodos diários, semanais e mensais | ALTA |
+|RF-010| A aplicação deve calcular a previsão de consumo dos produtos e informar quando será necessária a reposição | ALTA |
+|RF-011| A aplicação deve sugerir a quantidade de produtos a ser reposta com base no estoque atual e no consumo previsto | ALTA |
+|RF-012| A aplicação deve enviar alertas para o usuário sempre que um produto estiver com baixo estoque ou com a validade próxima do vencimento | ALTA |
+|RF-013| A aplicação deve exigir que o usuário faça login sempre que abrir o sistema | ALTA |
+|RF-014| A aplicação deve permitir que o usuário cadastre a unidade de medida dos produtos | ALTA |
+|RF-015| A aplicação deve permitir que o usuário registre entradas, saídas e perdas de produtos | ALTA |
+|RF-016| A aplicação deve disponibilizar ao usuário um painel com as principais informações do estoque | ALTA |
+|RF-017| A aplicação deve permitir que o usuário consulte o histórico de movimentações do estoque | ALTA |
+|RF-018| A aplicação deve permitir que o usuário consulte os produtos cadastrados no estoque | ALTA |
 
 ### Requisitos não Funcionais
 
