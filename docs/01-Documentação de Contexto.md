@@ -11,16 +11,19 @@ Quando essas informações são controladas de forma desorganizada, o estabeleci
 Desenvolver um sistema que auxilie o gerente de restaurantes de pequeno e médio porte a controlar o estoque de alimentos, acompanhar validades e planejar compras com base no consumo previsto, reduzindo desperdícios, gastos desnecessários e trabalho manual.
 
 ## Objetivos Específicos
-•	Permitir o cadastro, edição e remoção de produtos do estoque.
-•	Organizar os alimentos em categorias.
-•	Permitir o controle da quantidade disponível de cada produto.
-•	Registrar e acompanhar as datas de validade dos alimentos.
-•	Alertar o gerente sobre produtos com estoque baixo ou com validade próxima.
-•	Permitir o registro do consumo médio de alimentos de acordo com os dias da semana e o cardápio do restaurante.
-•	Calcular o consumo previsto para diferentes períodos, como dias, semanas e meses.
-•	Estimar os gastos com alimentos com base no consumo previsto e nos custos cadastrados.
-•	Auxiliar o gerente a identificar quando determinados produtos precisarão ser repostos.
-•	Apresentar as informações de estoque de forma simples e rápida, reduzindo o tempo gasto com atualizações manuais.
+
+|                                                                                               |
+|-----------------------------------------------------------------------------------------------|
+|Permitir o cadastro, edição e remoção de produtos do estoque|
+|Organizar os alimentos em categorias.|
+|Permitir o controle da quantidade disponível de cada produto|
+|Registrar e acompanhar as datas de validade dos alimentos|
+|Alertar o gerente sobre produtos com estoque baixo ou com validade próxima|
+|Permitir o registro do consumo médio de alimentos de acordo com os dias da semana e o cardápio do restaurante|
+|Calcular o consumo previsto para diferentes períodos, como dias, semanas e meses|
+|Estimar os gastos com alimentos com base no consumo previsto e nos custos cadastrados|
+|Auxiliar o gerente a identificar quando determinados produtos precisarão ser repostos|
+|Apresentar as informações de estoque de forma simples e rápida, reduzindo o tempo gasto com atualizações manuais|
 
 ## Justificativa
 
