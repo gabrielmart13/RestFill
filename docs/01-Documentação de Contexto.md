@@ -41,7 +41,7 @@ Nesse contexto, o RESTFILL contribui para essa meta ao fornecer mecanismos de co
 
 ## Referencias
 
-[1]BRASIL. Ministério da Agricultura e Pecuária. Perdas e desperdício de alimentos. Brasília, DF: Ministério da Agricultura e Pecuária, [s.d.]. Disponível em: https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/perdas-e-desperdicio-de-alimentos. Acesso em: 1 set. 2026
+[1] BRASIL. Ministério da Agricultura e Pecuária. Perdas e desperdício de alimentos. Brasília, DF: Ministério da Agricultura e Pecuária, [s.d.]. Disponível em: https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/perdas-e-desperdicio-de-alimentos. Acesso em: 1 set. 2026
 
 [2] ORGANIZAÇÃO DAS NAÇÕES UNIDAS. Objetivo de Desenvolvimento Sustentável 12: Consumo e produção responsáveis. Nações Unidas no Brasil, [s.d.]. Disponível em: https://brasil.un.org/pt-br/sdgs/12. Acesso em: 1 set. 2026.
 
