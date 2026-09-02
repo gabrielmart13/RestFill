@@ -83,7 +83,8 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 ## Diagrama de Casos de Uso
 
-O diagrama de casos de uso é o próximo passo após a elicitação de requisitos, que utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. Ele contempla a fronteira do sistema e o detalhamento dos requisitos funcionais com a indicação dos atores, casos de uso e seus relacionamentos. 
+<img width="1416" height="2894" alt="Diagrama Casos de Uso RESTFILL" src="https://github.com/user-attachments/assets/d3483e5b-cb54-413e-9554-6d2b7c34562b" />
+
 
 
 
