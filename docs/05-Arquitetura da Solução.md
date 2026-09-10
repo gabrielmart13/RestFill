@@ -1,37 +1,86 @@
 # Arquitetura da Solução
 
-<span style="color:red">Pré-requisitos: <a href="04-Projeto de Interface.md"> Projeto de Interface</a></span>
-
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
-
 ## Diagrama de Classes
 
-O diagrama de classes ilustra graficamente como será a estrutura do software, e como cada uma das classes da sua estrutura estarão interligadas. Essas classes servem de modelo para materializar os objetos que executarão na memória.
-
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Classes”.
-
-> - [Diagramas de Classes - Documentação da IBM](https://www.ibm.com/docs/pt-br/rational-soft-arch/9.6.1?topic=diagrams-class)
-> - [O que é um diagrama de classe UML? | Lucidchart](https://www.lucidchart.com/pages/pt/o-que-e-diagrama-de-classe-uml)
+<img width="1640" height="1226" alt="Diagrama de Classe RESTFILL" src="https://github.com/user-attachments/assets/fef48099-8968-4af2-92c3-a870603eb163" />
 
 ## Modelo ER (Projeto Conceitual)
 
-O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
-
-Sugestão de ferramentas para geração deste artefato: LucidChart e Draw.io.
-
-A referência abaixo irá auxiliá-lo na geração do artefato “Modelo ER”.
-
-> - [Como fazer um diagrama entidade relacionamento | Lucidchart](https://www.lucidchart.com/pages/pt/como-fazer-um-diagrama-entidade-relacionamento)
+<img width="1361" height="1078" alt="Diagrama ER RESTFILL" src="https://github.com/user-attachments/assets/0de206de-0e2e-4857-97c7-e24c159c6875" />
 
 ## Projeto da Base de Dados
 
-O projeto da base de dados corresponde à representação das entidades e relacionamentos identificadas no Modelo ER, no formato de tabelas, com colunas e chaves primárias/estrangeiras necessárias para representar corretamente as restrições de integridade.
- 
-Para mais informações, consulte o microfundamento "Modelagem de Dados".
+GERENTE(
+    idGerente INT PK,
+    nome VARCHAR(20),
+    senha VARCHAR(20)
+)
 
-## ATENÇÃO!!!
+CATEGORIA(
+    idCategoria INT PK,
+    nome VARCHAR(50),
+    descricao VARCHAR(255),
+    icone VARCHAR(255),
+    cor VARCHAR(20)
+)
 
-Os três artefatos — **Diagrama de Classes, Modelo ER e Projeto da Base de Dados** — devem ser desenvolvidos de forma sequencial e integrada, garantindo total coerência e compatibilidade entre eles. O diagrama de classes orienta a estrutura e o comportamento do software; o modelo ER traduz essa estrutura para o nível conceitual dos dados; e o projeto da base de dados materializa essas definições no formato físico (tabelas, colunas, chaves e restrições). A construção isolada ou desconexa desses elementos pode gerar inconsistências, dificultar a implementação e comprometer a qualidade do sistema.
+UNIDADEMEDIDA(
+    idUnidadeMedida INT PK,
+    nome VARCHAR(30),
+    tipo VARCHAR(30)
+)
+
+PRODUTO(
+    idProduto INT PK,
+    nome VARCHAR(50),
+    custoPorKg DECIMAL(10,2),
+    validade DATETIME,
+    quantidade DECIMAL(10,2),
+    quantidadeMinima DECIMAL(10,2),
+    descricao VARCHAR(255),
+    idCategoria INT FK → CATEGORIA(idCategoria),
+    idUnidadeMedida INT FK → UNIDADEMEDIDA(idUnidadeMedida)
+)
+
+MOVIMENTACAO(
+    idMovimentacao INT PK,
+    idGerente INT FK → GERENTE(idGerente),
+    idProduto INT FK → PRODUTO(idProduto),
+    quantidade DECIMAL(10,2),
+    tipo VARCHAR(30),
+    custo DECIMAL(10,2),
+    data DATETIME,
+    observacao VARCHAR(255)
+)
+
+REFEICAO(
+    idRefeicao INT PK,
+    nome VARCHAR(50),
+    descricao VARCHAR(255)
+)
+
+INGREDIENTE(
+    idIngrediente INT PK,
+    quantidade DECIMAL(10,2),
+    idRefeicao INT FK → REFEICAO(idRefeicao),
+    idProduto INT FK → PRODUTO(idProduto)
+)
+
+CARDAPIO(
+    idCardapio INT PK,
+    nome VARCHAR(50),
+    descricao VARCHAR(255),
+    ativo BOOL
+)
+
+ITEMCARDAPIO(
+    idItemCardapio INT PK,
+    diaDaSemana VARCHAR(20),
+    quantidadePrevista DECIMAL(10,2),
+    periodo DATETIME,
+    idCardapio INT FK → CARDAPIO(idCardapio),
+    idRefeicao INT FK → REFEICAO(idRefeicao)
+)
 
 ## Tecnologias Utilizadas
 
