@@ -1,0 +1,6 @@
+@Restfill.API_HostAddress = http://localhost:5120
+
+GET {{Restfill.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
