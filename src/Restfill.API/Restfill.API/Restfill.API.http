@@ -1,6 +1,6 @@
 @Restfill.API_HostAddress = http://localhost:5120
 
-GET {{Restfill.API_HostAddress}}/weatherforecast/
+GET {{Restfill.API_HostAddress}}/api/Produto
 Accept: application/json
 
 ###
