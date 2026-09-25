@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Models;
 
@@ -17,33 +18,61 @@ namespace Restfill.API.Controllers
 
         [HttpGet]
 
-        public ActionResult<List<Refeicao>> Get()
+        public async Task<ActionResult<List<Refeicao>>> Get()
         {
-            return new List<Refeicao>();
+            var refeicoes = await _context.Refeicoes.ToListAsync();
+            return Ok(refeicoes);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Refeicao> Get(int id)
+        public async Task<ActionResult<Refeicao>> Get(int id)
         {
-            return new Refeicao();
+            var refeicoes = await _context.Refeicoes.FirstOrDefaultAsync(x => x.IdRefeicao == id);
+            if(refeicoes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            return Ok(refeicoes);
         }
 
        [HttpPost]
 
-        public ActionResult <Refeicao> Post(Refeicao refeicao)
+        public async Task<ActionResult <Refeicao>> Post(Refeicao refeicao)
         {
-            return new Refeicao();
+            await _context.Refeicoes.AddAsync(refeicao);
+            await _context.SaveChangesAsync();
+
+            return Ok(refeicao);
         }
         [HttpPut("{id}")]
 
-        public ActionResult <Refeicao> Put(int id, Refeicao refeicao)
+        public async Task<ActionResult <Refeicao>> Put(int id, Refeicao refeicao)
         {
-            return new Refeicao();
+            var refeicoes = await _context.Refeicoes.FirstOrDefaultAsync(x => x.IdRefeicao == id);
+            if (refeicoes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+            refeicoes.Descricao = refeicao.Descricao;
+            refeicoes.Nome = refeicao.Nome;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(refeicoes);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var refeicoes = await _context.Refeicoes.FirstOrDefaultAsync(x => x.IdRefeicao == id);
+            if (refeicoes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+            _context.Refeicoes.Remove(refeicoes);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         

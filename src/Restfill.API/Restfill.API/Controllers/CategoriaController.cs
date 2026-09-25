@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Models;
 
@@ -16,30 +17,62 @@ namespace Restfill.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Categoria>> Get()
+        public async Task<ActionResult<List<Categoria>>> Get()
         {
-            return new List<Categoria>();
+            var categorias = await _context.Categorias.ToListAsync();
+            return Ok(categorias);
         }
         [HttpGet("{id}")]
-        public ActionResult<Categoria> Get(int id)
+        public async Task<ActionResult<Categoria>> Get(int id)
         {
-            return new Categoria();
+            var categorias = await _context.Categorias.FirstOrDefaultAsync(x => x.IdCategoria == id);
+            if(categorias == null)
+            {
+                return NotFound("Id não encontrado");
+            }
+
+            return Ok(categorias);
         }
         [HttpPost]
-        public ActionResult<Categoria> Post(Categoria categoria)
+        public async Task<ActionResult<Categoria>> Post(Categoria categoria)
         {
-            return new Categoria();
+            await _context.Categorias.AddAsync(categoria);
+            await _context.SaveChangesAsync();
+
+            return Ok(categoria);
         }
         [HttpPut("{id}")]
-        public ActionResult<Categoria> Put(int id, Categoria categoria)
+        public async Task<ActionResult<Categoria>> Put(int id, Categoria categoria)
         {
-            return new Categoria();
+            var categorias = await _context.Categorias.FirstOrDefaultAsync(x => x.IdCategoria == id);
+            if (categorias == null)
+            {
+                return NotFound("Id não encontrado");
+            }
+
+            categorias.Cor = categoria.Cor;
+            categorias.Descricao = categoria.Descricao;
+            categorias.Icone = categoria.Icone;
+            categorias.Nome = categoria.Nome;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(categorias);
         }
 
         [HttpDelete("{id}")]
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var categorias = await _context.Categorias.FirstOrDefaultAsync(x => x.IdCategoria == id);
+            if (categorias == null)
+            {
+                return NotFound();
+            }
+
+            _context.Categorias.Remove(categorias);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
     }

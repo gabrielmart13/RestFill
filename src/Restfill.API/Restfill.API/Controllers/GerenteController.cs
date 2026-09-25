@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Models;
 
@@ -9,28 +10,63 @@ namespace Restfill.API.Controllers
     public class GerenteController : ControllerBase
     {
         private readonly DataContext _context;
-        public GerenteController (DataContext context)
+
+        public GerenteController(DataContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public ActionResult<List<Gerente>> Get()
+        public async Task<ActionResult<List<Gerente>>> Get()
         {
-            return new List<Gerente>();
+            var gerentes = await _context.Gerentes.ToListAsync();
+
+            return Ok(gerentes);
         }
 
         [HttpPost]
-        public ActionResult<Gerente> Post(Gerente gerente)
+        public async Task<ActionResult<Gerente>> Post(Gerente gerente)
         {
-            return new Gerente();
+            await _context.Gerentes.AddAsync(gerente);
+            await _context.SaveChangesAsync();
+
+            return Ok(gerente);
         }
+
         [HttpPut("{id}")]
-        public ActionResult<Gerente> Put(int id, Gerente gerente)
+        public async Task<ActionResult<Gerente>> Put(int id, Gerente gerente)
         {
-            return new Gerente();
+            var gerentes = await _context.Gerentes
+                .FirstOrDefaultAsync(x => x.IdGerente == id);
+
+            if (gerentes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            gerentes.Nome = gerente.Nome;
+            gerentes.Senha = gerente.Senha;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(gerentes);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var gerentes = await _context.Gerentes
+                .FirstOrDefaultAsync(x => x.IdGerente == id);
 
+            if (gerentes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            _context.Gerentes.Remove(gerentes);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

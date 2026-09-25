@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Models;
 
@@ -16,20 +17,34 @@ namespace Restfill.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult <List<Movimentacao>> Get()
+        public async Task<ActionResult<List<Movimentacao>>> Get()
         {
-            return new List<Movimentacao>();
+            var movimentacoes = await _context.Movimentacoes.ToListAsync();
+
+            return Ok(movimentacoes);
         }
+
         [HttpGet("{id}")]
-        public ActionResult <Movimentacao> Get(int id)
+        public async Task<ActionResult<Movimentacao>> Get(int id)
         {
-            return new Movimentacao();
+            var movimentacoes = await _context.Movimentacoes
+                .FirstOrDefaultAsync(x => x.IdMovimentacao == id);
+
+            if (movimentacoes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            return Ok(movimentacoes);
         }
 
         [HttpPost]
-        public ActionResult <Movimentacao> Post(Movimentacao movimentacao)
+        public async Task<ActionResult<Movimentacao>> Post(Movimentacao movimentacao)
         {
-            return new Movimentacao();
+            await _context.Movimentacoes.AddAsync(movimentacao);
+            await _context.SaveChangesAsync();
+
+            return Ok(movimentacao);
         }
     }
 }

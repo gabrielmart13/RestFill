@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Models;
 
@@ -16,30 +17,59 @@ namespace Restfill.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult <List<Ingrediente>> Get()
+        public async Task<ActionResult <List<Ingrediente>>> Get()
         {
-            return new List<Ingrediente>();
+            var ingredientes = await _context.Ingredientes.ToListAsync();
+            return Ok(ingredientes);
         }
         [HttpGet("{id}")]
-        public ActionResult <Ingrediente> Get(int id)
+        public async Task<ActionResult <Ingrediente>> Get(int id)
         {
-            return new Ingrediente();
+            var ingredientes = await _context.Ingredientes.FirstOrDefaultAsync(x => x.IdIngrediente == id);
+            if(ingredientes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            return Ok(ingredientes);
         }
         [HttpPost]
-        public ActionResult <Ingrediente> Post(Ingrediente ingrediente)
+        public async Task<ActionResult <Ingrediente>> Post(Ingrediente ingrediente)
         {
-            return new Ingrediente();
+            await _context.Ingredientes.AddAsync(ingrediente);
+            await _context.SaveChangesAsync();
+
+            return Ok(ingrediente);
         }
         [HttpPut("{id}")]
-        public ActionResult <Ingrediente> Put(int id, Ingrediente ingrediente)
+        public async Task<ActionResult <Ingrediente>> Put(int id, Ingrediente ingrediente)
         {
-            return new Ingrediente();
+            var ingredientes = await _context.Ingredientes.FirstOrDefaultAsync(x => x.IdIngrediente == id);
+            if (ingredientes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            ingredientes.Quantidade = ingrediente.Quantidade;
+            ingredientes.IdRefeicao = ingrediente.IdRefeicao;
+            ingredientes.IdProduto = ingrediente.IdProduto;
+
+            await _context.SaveChangesAsync();
+            return Ok(ingredientes);
         }
 
         [HttpDelete("{id}")]
 
-        public IActionResult  Delete(int id)
+        public async Task<IActionResult>  Delete(int id)
         {
+            var ingredientes = await _context.Ingredientes.FirstOrDefaultAsync(x => x.IdIngrediente == id);
+            if (ingredientes == null)
+            {
+                return NotFound("ID não encontrado");
+            }
+
+            _context.Ingredientes.Remove(ingredientes);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Models;
 
@@ -16,34 +17,67 @@ namespace Restfill.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult <List<Produto>> Get()
+        public async Task<ActionResult <List<Produto>>> Get()
         {
-            return new List<Produto>();
+            var produtos = await _context.Produtos.ToListAsync();
+            return Ok(produtos);
         }
 
         [HttpGet("{id}")]
 
-        public ActionResult <Produto> Get(int id)
+        public async Task<ActionResult <Produto>> Get(int id)
         {
-            return new Produto();
+            var produtos = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == id);
+            if(produtos == null)
+            {
+                return NotFound("Id não encontrado");
+            }
+            return Ok(produtos);
         }
 
         [HttpPost]
-        public ActionResult <Produto> Post(Produto produto)
+        public async Task<ActionResult <Produto>> Post(Produto produto)
         {
-            return new Produto();
+            await _context.Produtos.AddAsync(produto);
+            await _context.SaveChangesAsync();
+
+            return Ok(produto);
         }
 
         [HttpPut("{id}")]
 
-        public ActionResult <Produto> Put(int id, Produto produto)
+        public async Task<ActionResult <Produto>> Put(int id, Produto produto)
         {
-            return new Produto();
+            var produtos = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == id);
+            if (produtos == null)
+            {
+                return NotFound("Id não encontrado");
+            }
+
+            produtos.CustoPorKg = produto.CustoPorKg;
+            produtos.Descricao = produto.Descricao;
+            produtos.IdUnidadeMedida = produto.IdUnidadeMedida;
+            produtos.Validade = produto.Validade;
+            produtos.Quantidade = produto.Quantidade;
+            produtos.QuantidadeMinima = produto.QuantidadeMinima;
+            produtos.IdCategoria = produto.IdCategoria;
+            produtos.Nome = produto.Nome;
+
+            await _context.SaveChangesAsync();
+            return Ok(produtos);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var produtos = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == id);
+            if (produtos == null)
+            {
+                return NotFound("Id não encontrado");
+            }
+            _context.Produtos.Remove(produtos);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
