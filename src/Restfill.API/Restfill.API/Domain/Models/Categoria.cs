@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Restfill.API.Models
+namespace Restfill.API.Domain.Models
 {
     public class Categoria
     {

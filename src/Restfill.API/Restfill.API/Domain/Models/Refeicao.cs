@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Restfill.API.Models
+namespace Restfill.API.Domain.Models
 {
-    public class Cardapio
+    public class Refeicao
     {
         [Key]
-        public int IdCardapio { get; set; }
+        public int IdRefeicao { get; set; }
         public string? Nome { get; set; }
         public string? Descricao { get; set; }
-        public bool? Ativo { get; set; }
     }
 }

@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.CategoriaDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,71 +13,58 @@ namespace Restfill.API.Controllers
     [Route("api/[Controller]")]
     public class CategoriaController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ICategoriaService _categoriaService;
 
-        public CategoriaController (DataContext context)
+        public CategoriaController (ICategoriaService CategoriaService)
         {
-            _context = context;
+            _categoriaService = CategoriaService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Categoria>>> Get()
         {
-            var categorias = await _context.Categorias.ToListAsync();
+            var categorias = await _categoriaService.PegarTodasCategorias();
             return Ok(categorias);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Categoria>> Get(int id)
         {
-            var categorias = await _context.Categorias.FirstOrDefaultAsync(x => x.IdCategoria == id);
-            if(categorias == null)
-            {
-                return NotFound("Id não encontrado");
-            }
+            var categorias = await _categoriaService.PegarCategoria(id);
 
             return Ok(categorias);
         }
         [HttpPost]
-        public async Task<ActionResult<Categoria>> Post(Categoria categoria)
+        public async Task<ActionResult<Categoria>> Post(CriarCategoriaRequest request)
         {
-            await _context.Categorias.AddAsync(categoria);
-            await _context.SaveChangesAsync();
-
+            Categoria categoria = new Categoria
+            {
+                Nome = request.Nome,
+                Descricao = request.Descricao,
+                Icone = request.Icone,
+                Cor = request.Cor
+            };
+            await _categoriaService.CriarCategoria(categoria);
             return Ok(categoria);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<Categoria>> Put(int id, Categoria categoria)
+        public async Task<ActionResult<Categoria>> Put(int id, AtualizarCategoriaRequest request)
         {
-            var categorias = await _context.Categorias.FirstOrDefaultAsync(x => x.IdCategoria == id);
-            if (categorias == null)
+            Categoria categoria = new Categoria
             {
-                return NotFound("Id não encontrado");
-            }
-
-            categorias.Cor = categoria.Cor;
-            categorias.Descricao = categoria.Descricao;
-            categorias.Icone = categoria.Icone;
-            categorias.Nome = categoria.Nome;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(categorias);
+                Nome = request.Nome,
+                Descricao = request.Descricao,
+                Icone = request.Icone,
+                Cor = request.Cor
+            };
+            await _categoriaService.AtualizarCategoria(id,categoria);
+            return Ok(categoria);
         }
 
         [HttpDelete("{id}")]
 
         public async Task<IActionResult> Delete(int id)
         {
-            var categorias = await _context.Categorias.FirstOrDefaultAsync(x => x.IdCategoria == id);
-            if (categorias == null)
-            {
-                return NotFound();
-            }
-
-            _context.Categorias.Remove(categorias);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await _categoriaService.DeletarCategoria(id));
         }
     }
 }

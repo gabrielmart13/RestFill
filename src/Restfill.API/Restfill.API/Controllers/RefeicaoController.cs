@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.RefeicaoDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,71 +11,57 @@ namespace Restfill.API.Controllers
     [Route("api/[controller]")]
     public class RefeicaoController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IRefeicaoService _refeicaoService;
 
-        public RefeicaoController(DataContext context)
+        public RefeicaoController(IRefeicaoService RefeicaoService)
         {
-            _context = context;
+            _refeicaoService = RefeicaoService;
         }
 
         [HttpGet]
 
         public async Task<ActionResult<List<Refeicao>>> Get()
         {
-            var refeicoes = await _context.Refeicoes.ToListAsync();
+            var refeicoes = await _refeicaoService.PegarTodasRefeicoes();
             return Ok(refeicoes);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Refeicao>> Get(int id)
         {
-            var refeicoes = await _context.Refeicoes.FirstOrDefaultAsync(x => x.IdRefeicao == id);
-            if(refeicoes == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-
+            var refeicoes = await _refeicaoService.PegarRefeicao(id);
             return Ok(refeicoes);
         }
 
        [HttpPost]
 
-        public async Task<ActionResult <Refeicao>> Post(Refeicao refeicao)
+        public async Task<ActionResult <Refeicao>> Post(CriarRefeicaoRequest request)
         {
-            await _context.Refeicoes.AddAsync(refeicao);
-            await _context.SaveChangesAsync();
-
+            Refeicao refeicao = new Refeicao
+            {
+                Nome = request.Nome,
+                Descricao = request.Descricao
+            };
+            await _refeicaoService.CriarRefeicao(refeicao);
             return Ok(refeicao);
         }
         [HttpPut("{id}")]
 
-        public async Task<ActionResult <Refeicao>> Put(int id, Refeicao refeicao)
+        public async Task<ActionResult <Refeicao>> Put(int id, AtualizarRefeicaoRequest request)
         {
-            var refeicoes = await _context.Refeicoes.FirstOrDefaultAsync(x => x.IdRefeicao == id);
-            if (refeicoes == null)
+            Refeicao refeicao = new Refeicao
             {
-                return NotFound("ID não encontrado");
-            }
-            refeicoes.Descricao = refeicao.Descricao;
-            refeicoes.Nome = refeicao.Nome;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(refeicoes);
+                Nome = request.Nome,
+                Descricao = request.Descricao
+            };
+            await _refeicaoService.AtualizarRefeicao(id,refeicao);
+            return Ok(refeicao);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var refeicoes = await _context.Refeicoes.FirstOrDefaultAsync(x => x.IdRefeicao == id);
-            if (refeicoes == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-            _context.Refeicoes.Remove(refeicoes);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await _refeicaoService.DeletarRefeicao(id));
         }
         
          

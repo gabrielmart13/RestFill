@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.CardapioDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,61 +11,37 @@ namespace Restfill.API.Controllers
     [Route("api/[Controller]")]
     public class CardapioController : ControllerBase
     {
-        private readonly DataContext _context;
-        public CardapioController (DataContext context)
+        private readonly ICardapioService _serviceCardapio;
+       
+        public CardapioController (ICardapioService CardapioService)
         {
-            _context = context;
+            _serviceCardapio = CardapioService;
         }
 
         [HttpGet]
         public async Task<ActionResult <List<Cardapio>>> Get()
         {
-            var cardapios = await _context.Cardapios.ToListAsync();
+            var cardapios = await _serviceCardapio.PegarTodosCardapios();
             return Ok(cardapios);
         }
 
-        [HttpPost]
-
-        public async Task<ActionResult <Cardapio>> Post(Cardapio cardapio)
+        [HttpGet("{id}")]
+        public async Task<ActionResult <Cardapio>> Get(int id)
         {
-            await _context.Cardapios.AddAsync(cardapio);
-            await _context.SaveChangesAsync();
-
-            return Ok("Cardapio adicionado com sucesso");
+            var cardapio = await _serviceCardapio.PegarCardapio(id);
+            return Ok(cardapio);
         }
-
         [HttpPut ("{id}")]
-        public async Task<ActionResult <Cardapio>> Put(int id, Cardapio cardapio)
+        public async Task<ActionResult <Cardapio>> Put(int id, AtualizarCardapioRequest request)
         {
-            var cardapios = await _context.Cardapios.FirstOrDefaultAsync(x => x.IdCardapio == id);
+            Cardapio cardapio = new Cardapio();
             
-            if(cardapios == null)
-            {
-                return NotFound("Id não encontrado");
-            }
+            cardapio.Nome = request.Nome;
+            cardapio.Descricao = request.Descricao;
+            cardapio.Ativo = request.Ativo;
 
-            cardapios.Nome = cardapio.Nome;
-            cardapios.Descricao = cardapio.Descricao;
-            cardapios.Ativo = cardapio.Ativo;
-            await _context.SaveChangesAsync();
 
-            return Ok("Alteracao feita com sucesso");
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var cardapios = await _context.Cardapios.FirstOrDefaultAsync(x => x.IdCardapio == id);
-
-            if (cardapios == null)
-            {
-                return NotFound("Id não encontrado");
-            }
-
-            _context.Cardapios.Remove(cardapios);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await _serviceCardapio.AtualizarCardapio(id, cardapio));
         }
 
     }

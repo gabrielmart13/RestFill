@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,19 +10,25 @@ namespace Restfill.API.Controllers
     [Route("api/[controller]")]
     public class UnidadeMedidaController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IUnidadeMedidaService _unidademedidaService;
 
-        public UnidadeMedidaController(DataContext context)
+        public UnidadeMedidaController(IUnidadeMedidaService UnidadeMedidaService)
         {
-            _context = context;
+            _unidademedidaService = UnidadeMedidaService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<UnidadeMedida>>> Get()
         {
-            var unidadesMedida = await _context.UnidadesMedida.ToListAsync();
+            var unidadesMedida = await _unidademedidaService.PegarTodasUnidadesMedida();
 
             return Ok(unidadesMedida);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult <UnidadeMedida>> Get(int id)
+        {
+            var unidademedida = await _unidademedidaService.PegarUnidadeMedida(id);
+            return Ok(unidademedida);
         }
     }
 }

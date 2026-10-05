@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restfill.API.Models;
+using Restfill.API.Domain.Models;
 
 namespace Restfill.API.Data
 {

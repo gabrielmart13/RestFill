@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.ProdutoDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,17 +12,17 @@ namespace Restfill.API.Controllers
     [Route("api/[controller]")]
     public class ProdutoController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IProdutoService _produtoService;
 
-        public ProdutoController(DataContext context)
+        public ProdutoController(IProdutoService ProdutoService)
         {
-            _context = context;
+            _produtoService = ProdutoService;
         }
 
         [HttpGet]
         public async Task<ActionResult <List<Produto>>> Get()
         {
-            var produtos = await _context.Produtos.ToListAsync();
+            var produtos = await _produtoService.PegarTodosProdutos();
             return Ok(produtos);
         }
 
@@ -27,58 +30,51 @@ namespace Restfill.API.Controllers
 
         public async Task<ActionResult <Produto>> Get(int id)
         {
-            var produtos = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == id);
-            if(produtos == null)
-            {
-                return NotFound("Id não encontrado");
-            }
+            var produtos = await _produtoService.PegarProduto(id);
             return Ok(produtos);
         }
 
         [HttpPost]
-        public async Task<ActionResult <Produto>> Post(Produto produto)
+        public async Task<ActionResult <Produto>> Post(AdicionarProdutoRequest request)
         {
-            await _context.Produtos.AddAsync(produto);
-            await _context.SaveChangesAsync();
-
+            Produto produto = new Produto
+            {
+                Nome = request.Nome,
+                Descricao = request.Descricao,
+                CustoPorKg = request.CustoPorKg,
+                Validade = request.Validade,
+                Quantidade = request.Quantidade,
+                QuantidadeMinima = request.QuantidadeMinima,
+                IdCategoria = request.IdCategoria,
+                IdUnidadeMedida = request.IdUnidadeMedida
+            };
+            await _produtoService.CriarProduto(produto);
             return Ok(produto);
         }
 
         [HttpPut("{id}")]
 
-        public async Task<ActionResult <Produto>> Put(int id, Produto produto)
+        public async Task<ActionResult <Produto>> Put(int id, AtualizarProdutoRequest request)
         {
-            var produtos = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == id);
-            if (produtos == null)
+            Produto produto = new Produto
             {
-                return NotFound("Id não encontrado");
-            }
-
-            produtos.CustoPorKg = produto.CustoPorKg;
-            produtos.Descricao = produto.Descricao;
-            produtos.IdUnidadeMedida = produto.IdUnidadeMedida;
-            produtos.Validade = produto.Validade;
-            produtos.Quantidade = produto.Quantidade;
-            produtos.QuantidadeMinima = produto.QuantidadeMinima;
-            produtos.IdCategoria = produto.IdCategoria;
-            produtos.Nome = produto.Nome;
-
-            await _context.SaveChangesAsync();
-            return Ok(produtos);
+                Nome = request.Nome,
+                Descricao = request.Descricao,
+                CustoPorKg = request.CustoPorKg,
+                Validade = request.Validade,
+                Quantidade = request.Quantidade,
+                QuantidadeMinima = request.QuantidadeMinima,
+                IdCategoria = request.IdCategoria,
+                IdUnidadeMedida = request.IdUnidadeMedida
+            };
+            await _produtoService.AtualizarProduto(id,produto);
+            return Ok(produto);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var produtos = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == id);
-            if (produtos == null)
-            {
-                return NotFound("Id não encontrado");
-            }
-            _context.Produtos.Remove(produtos);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await _produtoService.DeletarProduto(id));
         }
 
 

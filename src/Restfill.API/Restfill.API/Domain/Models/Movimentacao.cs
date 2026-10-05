@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Restfill.API.Models
+namespace Restfill.API.Domain.Models
 {
     public class Movimentacao
     {

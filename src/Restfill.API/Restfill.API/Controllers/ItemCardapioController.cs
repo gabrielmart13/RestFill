@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.ItemCardapioDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,17 +12,17 @@ namespace Restfill.API.Controllers
     [Route("api/[Controller]")]
     public class ItemCardapioController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IItemCardapioService _itemcardapioService;
 
-        public ItemCardapioController(DataContext context)
+        public ItemCardapioController(IItemCardapioService ItemCardapioService)
         {
-            _context = context;
+            _itemcardapioService = ItemCardapioService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ItemCardapio>>> Get()
         {
-            var itensCardapio = await _context.ItensCardapio.ToListAsync();
+            var itensCardapio = await _itemcardapioService.PegarTodosItensCardapio();
 
             return Ok(itensCardapio);
         }
@@ -27,63 +30,45 @@ namespace Restfill.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ItemCardapio>> Get(int id)
         {
-            var itensCardapio = await _context.ItensCardapio
-                .FirstOrDefaultAsync(x => x.IdItemCardapio == id);
-
-            if (itensCardapio == null)
-            {
-                return NotFound("ID não encontrado");
-            }
+            var itensCardapio = await _itemcardapioService.PegarItemCardapio(id);
 
             return Ok(itensCardapio);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ItemCardapio>> Post(ItemCardapio itemcardapio)
+        public async Task<ActionResult<ItemCardapio>> Post(AdicionarItemCardapioRequest request)
         {
-            await _context.ItensCardapio.AddAsync(itemcardapio);
-            await _context.SaveChangesAsync();
-
+            ItemCardapio itemcardapio = new ItemCardapio
+            {
+                DiaDaSemana = request.DiaSemana,
+                IdCardapio = request.IdCardapio,
+                IdRefeicao = request.IdRefeicao,
+                QuantidadePrevista = request.QuantidadePrevista,
+                Periodo = request.Periodo
+            };
+            await _itemcardapioService.AdicionarItemCardapio(itemcardapio);
             return Ok(itemcardapio);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ItemCardapio>> Put(int id, ItemCardapio itemcardapio)
+        public async Task<ActionResult<ItemCardapio>> Put(int id, AdicionarItemCardapioRequest request)
         {
-            var itensCardapio = await _context.ItensCardapio
-                .FirstOrDefaultAsync(x => x.IdItemCardapio == id);
-
-            if (itensCardapio == null)
+            ItemCardapio itemcardapio = new ItemCardapio
             {
-                return NotFound("ID não encontrado");
-            }
-
-            itensCardapio.DiaDaSemana = itemcardapio.DiaDaSemana;
-            itensCardapio.QuantidadePrevista = itemcardapio.QuantidadePrevista;
-            itensCardapio.Periodo = itemcardapio.Periodo;
-            itensCardapio.IdCardapio = itemcardapio.IdCardapio;
-            itensCardapio.IdRefeicao = itemcardapio.IdRefeicao;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(itensCardapio);
+                DiaDaSemana = request.DiaSemana,
+                IdCardapio = request.IdCardapio,
+                IdRefeicao = request.IdRefeicao,
+                QuantidadePrevista = request.QuantidadePrevista,
+                Periodo = request.Periodo
+            };
+            await _itemcardapioService.AtualizarItemCardapio(id,itemcardapio);
+            return Ok(itemcardapio);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var itensCardapio = await _context.ItensCardapio
-                .FirstOrDefaultAsync(x => x.IdItemCardapio == id);
-
-            if (itensCardapio == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-
-            _context.ItensCardapio.Remove(itensCardapio);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await _itemcardapioService.DeletarItemCardapio(id));
         }
     }
 }

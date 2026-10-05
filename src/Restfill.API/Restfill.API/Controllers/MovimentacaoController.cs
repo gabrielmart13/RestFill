@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.MovimentacaoDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,17 +11,17 @@ namespace Restfill.API.Controllers
     [Route("api/[controller]")]
     public class MovimentacaoController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IMovimentacaoService _movimentacaoService;
 
-        public MovimentacaoController(DataContext context)
+        public MovimentacaoController(IMovimentacaoService MovimentacaoService)
         {
-            _context = context;
+            _movimentacaoService = MovimentacaoService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Movimentacao>>> Get()
         {
-            var movimentacoes = await _context.Movimentacoes.ToListAsync();
+            var movimentacoes = await _movimentacaoService.PegarTodasMovimentacoes();
 
             return Ok(movimentacoes);
         }
@@ -27,23 +29,25 @@ namespace Restfill.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Movimentacao>> Get(int id)
         {
-            var movimentacoes = await _context.Movimentacoes
-                .FirstOrDefaultAsync(x => x.IdMovimentacao == id);
-
-            if (movimentacoes == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-
+            var movimentacoes = await _movimentacaoService.PegarMovimentacao(id);
             return Ok(movimentacoes);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Movimentacao>> Post(Movimentacao movimentacao)
+        public async Task<ActionResult<Movimentacao>> Post(AdicionarMovimentacaoRequest request)
         {
-            await _context.Movimentacoes.AddAsync(movimentacao);
-            await _context.SaveChangesAsync();
+            Movimentacao movimentacao = new Movimentacao
+            {
+                IdProduto = request.IdProduto,
+                Quantidade = request.Quantidade,
+                Tipo = request.Tipo,
+                Data = request.Data,
+                Observacao = request.Observacao,
+                IdGerente = request.IdGerente,
+                Custo = request.Custo
+            };
 
+            await _movimentacaoService.AdicionarMovimentacao(movimentacao);
             return Ok(movimentacao);
         }
     }

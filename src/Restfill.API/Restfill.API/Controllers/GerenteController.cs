@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.GerenteDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -9,64 +12,57 @@ namespace Restfill.API.Controllers
     [Route("api/[Controller]")]
     public class GerenteController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IGerenteService _gerenteService;
 
-        public GerenteController(DataContext context)
+        public GerenteController(IGerenteService GerenteService)
         {
-            _context = context;
+            _gerenteService = GerenteService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Gerente>>> Get()
         {
-            var gerentes = await _context.Gerentes.ToListAsync();
+            var gerentes = await _gerenteService.PegarTodosGerentes();
 
             return Ok(gerentes);
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Gerente>> Get(int id)
+        {
+            var gerente = await _gerenteService.PegarGerente(id);
+            return Ok(gerente);
+        }
 
         [HttpPost]
-        public async Task<ActionResult<Gerente>> Post(Gerente gerente)
+        public async Task<ActionResult<Gerente>> Post(CriarGerenteRequest request)
         {
-            await _context.Gerentes.AddAsync(gerente);
-            await _context.SaveChangesAsync();
+            Gerente gerente = new Gerente
+            {
+                Nome = request.Nome,
+                Senha = request.Senha
 
+            };
+            await _gerenteService.CriarGerente(gerente);
             return Ok(gerente);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Gerente>> Put(int id, Gerente gerente)
+        public async Task<ActionResult<Gerente>> Put(int id, AtualizarGerenteRequest request)
         {
-            var gerentes = await _context.Gerentes
-                .FirstOrDefaultAsync(x => x.IdGerente == id);
-
-            if (gerentes == null)
+            Gerente gerente = new Gerente
             {
-                return NotFound("ID não encontrado");
-            }
+                Nome = request.Nome,
+                Senha = request.Senha
 
-            gerentes.Nome = gerente.Nome;
-            gerentes.Senha = gerente.Senha;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(gerentes);
+            };
+            await _gerenteService.AtualizarGerente(id,gerente);
+            return Ok(gerente);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public  async Task<IActionResult> Delete(int id)
         {
-            var gerentes = await _context.Gerentes
-                .FirstOrDefaultAsync(x => x.IdGerente == id);
-
-            if (gerentes == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-
-            _context.Gerentes.Remove(gerentes);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await _gerenteService.DeletarGerente(id));
         }
     }
 }

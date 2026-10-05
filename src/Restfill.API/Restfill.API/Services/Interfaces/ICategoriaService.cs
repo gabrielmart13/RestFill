@@ -1,4 +1,4 @@
-﻿using Restfill.API.Models;
+﻿using Restfill.API.Domain.Models;
 
 namespace Restfill.API.Services.Interfaces
 {

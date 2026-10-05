@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
-using Restfill.API.Models;
+using Restfill.API.Domain.DTOs.IngredienteDTO;
+using Restfill.API.Domain.Models;
+using Restfill.API.Services.Interfaces;
 
 namespace Restfill.API.Controllers
 {
@@ -10,67 +13,57 @@ namespace Restfill.API.Controllers
     [Route("api/[Controller]")]
     public class IngredienteController : ControllerBase
     {
-        private readonly DataContext _context;
-        public IngredienteController(DataContext context)
+        private readonly IIngredienteService _ingredienteService;
+
+        public IngredienteController(IIngredienteService IngredienteService)
         {
-            _context = context;
+            _ingredienteService = IngredienteService;
         }
 
         [HttpGet]
         public async Task<ActionResult <List<Ingrediente>>> Get()
         {
-            var ingredientes = await _context.Ingredientes.ToListAsync();
+            var ingredientes = await _ingredienteService.PegarTodosIngredientes();
             return Ok(ingredientes);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult <Ingrediente>> Get(int id)
         {
-            var ingredientes = await _context.Ingredientes.FirstOrDefaultAsync(x => x.IdIngrediente == id);
-            if(ingredientes == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-
+            var ingredientes = await _ingredienteService.PegarIngrediente(id);
             return Ok(ingredientes);
         }
         [HttpPost]
-        public async Task<ActionResult <Ingrediente>> Post(Ingrediente ingrediente)
+        public async Task<ActionResult <Ingrediente>> Post(AdicionarIngredienteRequest request)
         {
-            await _context.Ingredientes.AddAsync(ingrediente);
-            await _context.SaveChangesAsync();
-
+            Ingrediente ingrediente = new Ingrediente
+            {
+                IdProduto = request.IdProduto,
+                Quantidade = request.Quantidade,
+                IdRefeicao = request.IdRefeicao
+                
+            };
+            await _ingredienteService.AdicionarIngrediente(ingrediente);
             return Ok(ingrediente);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult <Ingrediente>> Put(int id, Ingrediente ingrediente)
+        public async Task<ActionResult <Ingrediente>> Put(int id, AtualizarIngredienteRequest request)
         {
-            var ingredientes = await _context.Ingredientes.FirstOrDefaultAsync(x => x.IdIngrediente == id);
-            if (ingredientes == null)
+            Ingrediente ingrediente = new Ingrediente
             {
-                return NotFound("ID não encontrado");
-            }
+                IdProduto = request.IdProduto,
+                Quantidade = request.Quantidade,
+                IdRefeicao = request.IdRefeicao
 
-            ingredientes.Quantidade = ingrediente.Quantidade;
-            ingredientes.IdRefeicao = ingrediente.IdRefeicao;
-            ingredientes.IdProduto = ingrediente.IdProduto;
-
-            await _context.SaveChangesAsync();
-            return Ok(ingredientes);
+            };
+            await _ingredienteService.AtualizarIngrediente(id,ingrediente);
+            return Ok(ingrediente);
         }
 
         [HttpDelete("{id}")]
 
         public async Task<IActionResult>  Delete(int id)
         {
-            var ingredientes = await _context.Ingredientes.FirstOrDefaultAsync(x => x.IdIngrediente == id);
-            if (ingredientes == null)
-            {
-                return NotFound("ID não encontrado");
-            }
-
-            _context.Ingredientes.Remove(ingredientes);
-            await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(await _ingredienteService.DeletarIngrediente(id));
         }
         
 

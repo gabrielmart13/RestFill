@@ -1,4 +1,4 @@
-﻿using Restfill.API.Models;
+﻿using Restfill.API.Domain.Models;
 
 namespace Restfill.API.Services.Interfaces
 {
@@ -6,6 +6,6 @@ namespace Restfill.API.Services.Interfaces
     {
         public Task<Cardapio> PegarCardapio(int id);
         public Task<List<Cardapio>> PegarTodosCardapios();
-        public Task<Cardapio> AtualizarCardapio(Cardapio cardapio);
+        public Task<Cardapio> AtualizarCardapio(int id,Cardapio cardapio);
     }
 }
