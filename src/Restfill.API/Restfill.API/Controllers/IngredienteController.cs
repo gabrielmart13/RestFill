@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
@@ -11,6 +12,7 @@ namespace Restfill.API.Controllers
 
     [ApiController]
     [Route("api/[Controller]")]
+    [Authorize]
     public class IngredienteController : ControllerBase
     {
         private readonly IIngredienteService _ingredienteService;

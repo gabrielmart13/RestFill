@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
+import api from "../../services/api";
 import "./login.css";
 
 function Login() {
@@ -10,16 +10,28 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!senha.trim()) {
             return;
         }
 
-        // Temporário.
-        // A autenticação real será ligada à API posteriormente.
-        navigate("/dashboard");
+        try {
+            const response = await api.post("/Auth/login", {
+                senha: senha,
+            });
+
+            const token = response.data.token;
+
+            localStorage.setItem("token", token);
+
+            navigate("/dashboard");
+        } catch (error) {
+            console.error(error);
+
+            alert("Senha incorreta.");
+        }
     };
 
     return (

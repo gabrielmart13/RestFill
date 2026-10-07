@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Domain.Models;
@@ -8,6 +9,7 @@ namespace Restfill.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UnidadeMedidaController : ControllerBase
     {
         private readonly IUnidadeMedidaService _unidademedidaService;

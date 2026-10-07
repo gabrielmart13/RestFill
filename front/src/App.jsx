@@ -37,6 +37,15 @@ function ProdutoFormWrapper() {
     );
 }
 
+function PrivateRoute({ children }) {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
+}
 
 function CategoriaFormWrapper() {
     const { id } = useParams();
@@ -80,7 +89,13 @@ function App() {
 
                 {/* SISTEMA */}
 
-                <Route element={<Layout />}>
+                <Route
+                    element={
+                        <PrivateRoute>
+                            <Layout />
+                        </PrivateRoute>
+                    }
+                >
 
                     {/* DASHBOARD */}
 

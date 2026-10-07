@@ -19,7 +19,7 @@ import movimentacaoService from "../../services/movimentacaoService";
 import produtoService from "../../services/produtoService";
 import unidadeMedidaService from "../../services/unidadeMedidaService";
 
-import "./movimentacoes.css";
+import "./movimentacao.css";
 
 function Movimentacoes() {
     const navigate = useNavigate();
