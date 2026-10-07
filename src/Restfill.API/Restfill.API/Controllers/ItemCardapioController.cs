@@ -40,7 +40,7 @@ namespace Restfill.API.Controllers
         {
             ItemCardapio itemcardapio = new ItemCardapio
             {
-                DiaDaSemana = request.DiaSemana,
+                DiaDaSemana = request.DiaDaSemana,
                 IdCardapio = request.IdCardapio,
                 IdRefeicao = request.IdRefeicao,
                 QuantidadePrevista = request.QuantidadePrevista,
@@ -55,7 +55,7 @@ namespace Restfill.API.Controllers
         {
             ItemCardapio itemcardapio = new ItemCardapio
             {
-                DiaDaSemana = request.DiaSemana,
+                DiaDaSemana = request.DiaDaSemana,
                 IdCardapio = request.IdCardapio,
                 IdRefeicao = request.IdRefeicao,
                 QuantidadePrevista = request.QuantidadePrevista,

@@ -2,16 +2,29 @@ using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Data.Repositories;
 using Restfill.API.Data.Repositories.Interfaces;
+using Restfill.API.Middleware;
 using Restfill.API.Services;
 using Restfill.API.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Controllers
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:5173",
+                "https://localhost:5173"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 // Repository
 builder.Services.AddScoped<IGeralRepo, GeralRepo>();
@@ -27,17 +40,19 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IRefeicaoService, RefeicaoService>();
 builder.Services.AddScoped<IUnidadeMedidaService, UnidadeMedidaService>();
 
-
-
+// Swagger
 builder.Services.AddSwaggerGen();
 
+// Banco de dados
 builder.Services.AddDbContext<DataContext>(
     options => options.UseMySQL(
         builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware global de exceções
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -45,6 +60,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS
+app.UseCors("Frontend");
 
 app.UseAuthorization();
 

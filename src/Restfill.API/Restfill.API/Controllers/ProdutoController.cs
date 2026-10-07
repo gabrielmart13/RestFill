@@ -62,7 +62,6 @@ namespace Restfill.API.Controllers
                 Descricao = request.Descricao,
                 CustoPorKg = request.CustoPorKg,
                 Validade = request.Validade,
-                Quantidade = request.Quantidade,
                 QuantidadeMinima = request.QuantidadeMinima,
                 IdCategoria = request.IdCategoria,
                 IdUnidadeMedida = request.IdUnidadeMedida

@@ -6,8 +6,8 @@ namespace Restfill.API.Domain.Models
     {
         [Key]
         public int IdUnidadeMedida { get; set; }
-        public string? Nome { get; set; }
-        public string? Tipo { get; set; }
+        public string Nome { get; set; } = null!;
+        public string Tipo { get; set; } = null!;
 
     }
 }

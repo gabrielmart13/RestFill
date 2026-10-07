@@ -6,8 +6,8 @@ namespace Restfill.API.Domain.Models
     {
         [Key]
         public int IdCardapio { get; set; }
-        public string? Nome { get; set; }
+        public string Nome { get; set; } = null!;
         public string? Descricao { get; set; }
-        public bool? Ativo { get; set; }
+        public bool Ativo { get; set; }
     }
 }

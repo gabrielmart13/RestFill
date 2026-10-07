@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Restfill.API.Migrations
+namespace Restfill.API.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -21,9 +21,9 @@ namespace Restfill.API.Migrations
                 {
                     IdCardapio = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true),
+                    Nome = table.Column<string>(type: "longtext", nullable: false),
                     Descricao = table.Column<string>(type: "longtext", nullable: true),
-                    Ativo = table.Column<bool>(type: "tinyint(1)", nullable: true)
+                    Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -37,7 +37,7 @@ namespace Restfill.API.Migrations
                 {
                     IdCategoria = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true),
+                    Nome = table.Column<string>(type: "longtext", nullable: false),
                     Descricao = table.Column<string>(type: "longtext", nullable: true),
                     Icone = table.Column<string>(type: "longtext", nullable: true),
                     Cor = table.Column<string>(type: "longtext", nullable: true)
@@ -54,8 +54,8 @@ namespace Restfill.API.Migrations
                 {
                     IdGerente = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true),
-                    Senha = table.Column<string>(type: "longtext", nullable: true)
+                    Nome = table.Column<string>(type: "longtext", nullable: false),
+                    Senha = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,7 +69,7 @@ namespace Restfill.API.Migrations
                 {
                     IdRefeicao = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true),
+                    Nome = table.Column<string>(type: "longtext", nullable: false),
                     Descricao = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
@@ -84,8 +84,8 @@ namespace Restfill.API.Migrations
                 {
                     IdUnidadeMedida = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true),
-                    Tipo = table.Column<string>(type: "longtext", nullable: true)
+                    Nome = table.Column<string>(type: "longtext", nullable: false),
+                    Tipo = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,11 +99,11 @@ namespace Restfill.API.Migrations
                 {
                     IdItemCardapio = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    DiaDaSemana = table.Column<string>(type: "longtext", nullable: true),
-                    QuantidadePrevista = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Periodo = table.Column<string>(type: "longtext", nullable: true),
-                    IdCardapio = table.Column<int>(type: "int", nullable: true),
-                    IdRefeicao = table.Column<int>(type: "int", nullable: true)
+                    DiaDaSemana = table.Column<string>(type: "longtext", nullable: false),
+                    QuantidadePrevista = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    Periodo = table.Column<string>(type: "longtext", nullable: false),
+                    IdCardapio = table.Column<int>(type: "int", nullable: false),
+                    IdRefeicao = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,12 +112,14 @@ namespace Restfill.API.Migrations
                         name: "FK_itemcardapio_cardapio_IdCardapio",
                         column: x => x.IdCardapio,
                         principalTable: "cardapio",
-                        principalColumn: "IdCardapio");
+                        principalColumn: "IdCardapio",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_itemcardapio_refeicao_IdRefeicao",
                         column: x => x.IdRefeicao,
                         principalTable: "refeicao",
-                        principalColumn: "IdRefeicao");
+                        principalColumn: "IdRefeicao",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -127,14 +129,14 @@ namespace Restfill.API.Migrations
                 {
                     IdProduto = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: true),
-                    CustoPorKg = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Validade = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Quantidade = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    QuantidadeMinima = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Nome = table.Column<string>(type: "longtext", nullable: false),
+                    CustoPorKg = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    Validade = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Quantidade = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    QuantidadeMinima = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     Descricao = table.Column<string>(type: "longtext", nullable: true),
-                    IdCategoria = table.Column<int>(type: "int", nullable: true),
-                    IdUnidadeMedida = table.Column<int>(type: "int", nullable: true)
+                    IdCategoria = table.Column<int>(type: "int", nullable: false),
+                    IdUnidadeMedida = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -143,12 +145,14 @@ namespace Restfill.API.Migrations
                         name: "FK_produto_categoria_IdCategoria",
                         column: x => x.IdCategoria,
                         principalTable: "categoria",
-                        principalColumn: "IdCategoria");
+                        principalColumn: "IdCategoria",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_produto_unidademedida_IdUnidadeMedida",
                         column: x => x.IdUnidadeMedida,
                         principalTable: "unidademedida",
-                        principalColumn: "IdUnidadeMedida");
+                        principalColumn: "IdUnidadeMedida",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -158,9 +162,9 @@ namespace Restfill.API.Migrations
                 {
                     IdIngrediente = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Quantidade = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    IdRefeicao = table.Column<int>(type: "int", nullable: true),
-                    IdProduto = table.Column<int>(type: "int", nullable: true)
+                    Quantidade = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    IdRefeicao = table.Column<int>(type: "int", nullable: false),
+                    IdProduto = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,12 +173,14 @@ namespace Restfill.API.Migrations
                         name: "FK_ingrediente_produto_IdProduto",
                         column: x => x.IdProduto,
                         principalTable: "produto",
-                        principalColumn: "IdProduto");
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ingrediente_refeicao_IdRefeicao",
                         column: x => x.IdRefeicao,
                         principalTable: "refeicao",
-                        principalColumn: "IdRefeicao");
+                        principalColumn: "IdRefeicao",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -184,13 +190,13 @@ namespace Restfill.API.Migrations
                 {
                     IdMovimentacao = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Quantidade = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Tipo = table.Column<string>(type: "longtext", nullable: true),
-                    Custo = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Data = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Quantidade = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    Tipo = table.Column<string>(type: "longtext", nullable: false),
+                    Custo = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Observacao = table.Column<string>(type: "longtext", nullable: true),
-                    IdGerente = table.Column<int>(type: "int", nullable: true),
-                    IdProduto = table.Column<int>(type: "int", nullable: true)
+                    IdGerente = table.Column<int>(type: "int", nullable: false),
+                    IdProduto = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -199,12 +205,14 @@ namespace Restfill.API.Migrations
                         name: "FK_movimentacao_gerente_IdGerente",
                         column: x => x.IdGerente,
                         principalTable: "gerente",
-                        principalColumn: "IdGerente");
+                        principalColumn: "IdGerente",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_movimentacao_produto_IdProduto",
                         column: x => x.IdProduto,
                         principalTable: "produto",
-                        principalColumn: "IdProduto");
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -214,9 +222,10 @@ namespace Restfill.API.Migrations
                 column: "IdProduto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingrediente_IdRefeicao",
+                name: "IX_ingrediente_IdRefeicao_IdProduto",
                 table: "ingrediente",
-                column: "IdRefeicao");
+                columns: new[] { "IdRefeicao", "IdProduto" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_itemcardapio_IdCardapio",
