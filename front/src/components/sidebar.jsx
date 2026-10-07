@@ -4,7 +4,7 @@ import {
     Folder,
     CalendarDays,
     ChartNoAxesColumnIncreasing,
-    History,
+    ArrowLeftRight,
     Bell,
     Settings,
     LogOut,
@@ -45,19 +45,9 @@ function Sidebar() {
             icon: ChartNoAxesColumnIncreasing,
         },
         {
-            name: "Histórico de Movimentações",
-            path: "/historico",
-            icon: History,
-        },
-        {
-            name: "Alertas",
-            path: "/alertas",
-            icon: Bell,
-        },
-        {
-            name: "Configurações",
-            path: "/configuracoes",
-            icon: Settings,
+            name: "Movimentações",
+            path: "/movimentacoes",
+            icon: ArrowLeftRight,
         },
     ];
 
@@ -71,9 +61,11 @@ function Sidebar() {
             <div className="sidebar-top">
 
                 <div className="sidebar-logo">
+
                     <ChefHat size={38} />
 
                     <div>
+
                         <div className="sidebar-logo-text">
                             REST<span>FILL</span>
                         </div>
@@ -81,12 +73,15 @@ function Sidebar() {
                         <div className="sidebar-subtitle">
                             Gestão Inteligente de Estoque
                         </div>
+
                     </div>
+
                 </div>
 
                 <nav className="sidebar-menu">
 
                     {menuItems.map((item) => {
+
                         const Icon = item.icon;
 
                         return (
@@ -100,11 +95,16 @@ function Sidebar() {
                                     }`
                                 }
                             >
+
                                 <Icon size={22} />
 
-                                <span>{item.name}</span>
+                                <span>
+                                    {item.name}
+                                </span>
+
                             </NavLink>
                         );
+
                     })}
 
                 </nav>
@@ -117,9 +117,13 @@ function Sidebar() {
                     className="sidebar-logout"
                     onClick={sair}
                 >
+
                     <LogOut size={22} />
 
-                    <span>Sair</span>
+                    <span>
+                        Sair
+                    </span>
+
                 </button>
 
                 <div className="sidebar-user">
@@ -129,8 +133,15 @@ function Sidebar() {
                     </div>
 
                     <div className="sidebar-user-info">
-                        <strong>Gerente</strong>
-                        <span>Administrador</span>
+
+                        <strong>
+                            Gerente
+                        </strong>
+
+                        <span>
+                            Administrador
+                        </span>
+
                     </div>
 
                 </div>

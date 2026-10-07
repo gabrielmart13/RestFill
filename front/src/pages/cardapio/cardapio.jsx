@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import {
     CalendarDays,
-    Copy,
-    Download,
     EllipsisVertical,
     Info,
     Pencil,
@@ -22,41 +20,13 @@ import refeicaoService from "../../services/refeicaoService";
 import "./cardapio.css";
 
 const diasSemana = [
-    {
-        chave: "segunda",
-        nome: "SEGUNDA",
-        numero: "01",
-    },
-    {
-        chave: "terca",
-        nome: "TERÇA",
-        numero: "02",
-    },
-    {
-        chave: "quarta",
-        nome: "QUARTA",
-        numero: "03",
-    },
-    {
-        chave: "quinta",
-        nome: "QUINTA",
-        numero: "04",
-    },
-    {
-        chave: "sexta",
-        nome: "SEXTA",
-        numero: "05",
-    },
-    {
-        chave: "sabado",
-        nome: "SÁBADO",
-        numero: "06",
-    },
-    {
-        chave: "domingo",
-        nome: "DOMINGO",
-        numero: "07",
-    },
+    { chave: "segunda", nome: "SEGUNDA", numero: "01" },
+    { chave: "terca", nome: "TERÇA", numero: "02" },
+    { chave: "quarta", nome: "QUARTA", numero: "03" },
+    { chave: "quinta", nome: "QUINTA", numero: "04" },
+    { chave: "sexta", nome: "SEXTA", numero: "05" },
+    { chave: "sabado", nome: "SÁBADO", numero: "06" },
+    { chave: "domingo", nome: "DOMINGO", numero: "07" },
 ];
 
 function normalizarDia(dia) {
@@ -246,16 +216,6 @@ function Cardapio() {
         );
     };
 
-    const copiarSemanaAnterior = () => {
-        alert(
-            "A função de copiar a semana anterior será conectada ao backend na próxima etapa."
-        );
-    };
-
-    const exportarCardapio = () => {
-        window.print();
-    };
-
     const editarRefeicao = () => {
         navigate("/cardapio/refeicoes");
     };
@@ -340,33 +300,7 @@ function Cardapio() {
                         size={32}
                     />
                 </div>
-
-                <div className="cardapio-top-actions">
-                    <button onClick={copiarSemanaAnterior}>
-                        <Copy size={21} />
-                        Copiar Semana Anterior
-                    </button>
-
-                    <button onClick={exportarCardapio}>
-                        <Download size={21} />
-                        Exportar Cardápio
-                    </button>
-                </div>
             </section>
-
-            <div className="cardapio-tabs">
-                <button className="cardapio-tab active">
-                    Visualização Semanal
-                </button>
-
-                <button className="cardapio-tab">
-                    Consumo por Ingrediente
-                </button>
-
-                <button className="cardapio-tab">
-                    Histórico de Cardápios
-                </button>
-            </div>
 
             <section className="cardapio-week-grid">
                 {diasSemana.map((dia) => {

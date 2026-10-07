@@ -58,12 +58,23 @@ namespace Restfill.API.Services
 
         public async Task<Categoria> DeletarCategoria(int id)
         {
+            var produtosDeCategorias = await _geralRepo.PegarTodos<Produto>();
             var categoria = await _geralRepo.Pegar<Categoria>(id);
 
             if (categoria == null)
             {
                 throw new NotFoundException(
                     "Categoria não encontrada.");
+            }
+            foreach(Produto produtos in produtosDeCategorias)
+            {
+                if (categoria.IdCategoria == produtos.IdCategoria )
+                {
+                    if (produtos.Ativo)
+                    {
+                        throw new ConflictException("Voce não pode excluir uma categoria com produtos cadastrados");
+                    }
+                }
             }
 
             await _geralRepo.Remover(categoria);

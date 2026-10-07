@@ -20,6 +20,9 @@ import CategoriaForm from "./pages/categorias/categoriaform";
 import Cardapio from "./pages/cardapio/cardapio";
 import Refeicoes from "./pages/cardapio/refeicoes";
 
+import Movimentacoes from "./pages/movimentacoes/movimentacoes";
+import MovimentacaoForm from "./pages/movimentacoes/movimentacaoform";
+
 import Layout from "./components/layout/layout";
 
 
@@ -85,6 +88,7 @@ function App() {
                         path="/gastos-produtos"
                         element={<GastosProdutos />}
                     />
+
                     <Route
                         path="/dashboard"
                         element={<Dashboard />}
@@ -159,6 +163,19 @@ function App() {
                     <Route
                         path="/cardapio/refeicoes/editar/:id"
                         element={<Refeicoes />}
+                    />
+
+
+                    {/* MOVIMENTAÇÕES */}
+
+                    <Route
+                        path="/movimentacoes"
+                        element={<Movimentacoes />}
+                    />
+
+                    <Route
+                        path="/movimentacoes/nova"
+                        element={<MovimentacaoForm />}
                     />
 
                 </Route>

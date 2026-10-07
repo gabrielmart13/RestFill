@@ -31,7 +31,9 @@ namespace Restfill.API.Services
         {
             var produtos = await _geralRepo.PegarTodos<Produto>();
 
-            return produtos.ToList();
+            return produtos
+                .Where(p => p.Ativo)
+                .ToList();
         }
 
         public async Task<Produto> CriarProduto(Produto produto)
@@ -39,13 +41,13 @@ namespace Restfill.API.Services
             if (string.IsNullOrWhiteSpace(produto.Nome) ||
                 produto.CustoPorKg <= 0 ||
                 produto.Quantidade <= 0 ||
-                produto.IdCategoria == null ||
-                produto.IdUnidadeMedida == null ||
-                produto.Validade == null)
+                produto.QuantidadeMinima < 0)
             {
                 throw new ValidationException(
                     "É preciso informar todos os campos obrigatórios.");
             }
+
+            produto.Ativo = true;
 
             await _geralRepo.Adicionar(produto);
 
@@ -65,12 +67,15 @@ namespace Restfill.API.Services
                     "Produto não encontrado.");
             }
 
+            if (!produtoAtual.Ativo)
+            {
+                throw new ConflictException(
+                    "Não é possível editar um produto desativado.");
+            }
+
             if (string.IsNullOrWhiteSpace(produto.Nome) ||
                 produto.CustoPorKg <= 0 ||
-                produto.Quantidade <= 0 ||
-                produto.IdCategoria == null ||
-                produto.IdUnidadeMedida == null ||
-                produto.Validade == null)
+                produto.QuantidadeMinima < 0)
             {
                 throw new ValidationException(
                     "É preciso informar todos os campos obrigatórios.");
@@ -79,7 +84,6 @@ namespace Restfill.API.Services
             produtoAtual.Nome = produto.Nome;
             produtoAtual.CustoPorKg = produto.CustoPorKg;
             produtoAtual.Validade = produto.Validade;
-            produtoAtual.Quantidade = produto.Quantidade;
             produtoAtual.QuantidadeMinima = produto.QuantidadeMinima;
             produtoAtual.Descricao = produto.Descricao;
             produtoAtual.IdCategoria = produto.IdCategoria;
@@ -99,7 +103,15 @@ namespace Restfill.API.Services
                     "Produto não encontrado.");
             }
 
-            await _geralRepo.Remover(produto);
+            if (!produto.Ativo)
+            {
+                throw new ConflictException(
+                    "O produto já está desativado.");
+            }
+
+            produto.Ativo = false;
+
+            await _geralRepo.Atualizar(produto);
 
             return produto;
         }

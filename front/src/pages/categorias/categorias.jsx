@@ -129,16 +129,17 @@ function Categorias() {
 
             setCategoriaExcluir(null);
         } catch (error) {
-            console.error(error);
-
             const mensagem =
                 error?.response?.data?.message ||
                 "Não foi possível excluir a categoria.";
+            setCategoriaExcluir(null);
 
             setErro(mensagem);
         } finally {
             setExcluindo(false);
         }
+
+
     };
 
     const formatarMoeda = (valor) => {

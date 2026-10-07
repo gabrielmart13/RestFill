@@ -189,6 +189,9 @@ namespace Restfill.API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<decimal>("CustoPorKg")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
@@ -196,7 +199,7 @@ namespace Restfill.API.Data.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("IdCategoria")
+                    b.Property<int?>("IdCategoria")
                         .HasColumnType("int");
 
                     b.Property<int>("IdUnidadeMedida")
@@ -325,8 +328,7 @@ namespace Restfill.API.Data.Migrations
                     b.HasOne("Restfill.API.Domain.Models.Categoria", "Categoria")
                         .WithMany()
                         .HasForeignKey("IdCategoria")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Restfill.API.Domain.Models.UnidadeMedida", "UnidadeMedida")
                         .WithMany()

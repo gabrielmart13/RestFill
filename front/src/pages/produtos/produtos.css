@@ -407,7 +407,9 @@
         cursor: pointer;
         transition: background 0.2s ease, color 0.2s ease;
     }
-
+.produtos-page .produto-btn-excluir {
+    margin-right: 12px;
+}
 .btn-editar {
     color: #222222;
 }
@@ -744,4 +746,6 @@
     .modal-excluir {
         padding: 28px 20px;
     }
+
+
 }

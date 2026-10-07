@@ -158,66 +158,33 @@
             background: #fafafa;
         }
 
-/* TABS */
-
-.cardapio-tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid #dedede;
-    margin-bottom: 17px;
-}
-
-.cardapio-tab {
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 13px 25px;
-    color: #171717;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-    .cardapio-tab.active {
-        color: #d00000;
-        font-weight: 700;
-    }
-
-        .cardapio-tab.active::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -1px;
-            height: 2px;
-            background: #d00000;
-        }
-
 /* SEMANA */
 
 .cardapio-week-grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    border: 1px solid #d7d7d7;
-    border-radius: 8px;
-    overflow: hidden;
+    gap: 14px;
+    align-items: start;
 }
 
 .cardapio-day-column {
     min-width: 0;
-    border-right: 1px solid #d7d7d7;
+    overflow: hidden;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-    .cardapio-day-column:last-child {
-        border-right: none;
-    }
-
 .cardapio-day-header {
-    height: 60px;
-    padding: 9px 12px;
-    border-bottom: 1px solid #d7d7d7;
+    position: relative;
+    min-height: 66px;
+    padding: 11px 12px;
+    border-bottom: 1px solid #e3e3e3;
+    background: #fafafa;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
     .cardapio-day-header > div {
@@ -225,68 +192,102 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        padding: 0 28px;
     }
 
     .cardapio-day-header strong {
         font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
     }
 
     .cardapio-day-header span {
-        margin-top: 3px;
+        margin-top: 4px;
+        color: #666666;
         font-size: 12px;
     }
 
     .cardapio-day-header button {
         position: absolute;
-        margin-left: 88px;
+        right: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: none;
+        border-radius: 6px;
         background: transparent;
+        color: #555555;
         cursor: pointer;
+        transition: 0.2s;
     }
+
+        .cardapio-day-header button:hover {
+            background: #eeeeee;
+            color: #111111;
+        }
 
 .cardapio-day-content {
     min-height: 268px;
+    padding: 10px;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .cardapio-meal {
-    min-height: 134px;
-    padding: 16px 15px;
-    border-bottom: 1px solid #e2e2e2;
+    min-height: 0;
+    padding: 14px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-    .cardapio-meal:last-child {
-        border-bottom: none;
-    }
-
 .cardapio-meal-period {
-    margin-bottom: 12px;
-    font-size: 13px;
+    width: fit-content;
+    margin-bottom: 11px;
+    padding: 4px 8px;
+    border: 1px solid #f0cccc;
+    border-radius: 999px;
+    background: #fff6f6;
+    color: #c90000;
+    font-size: 11px;
     font-weight: 700;
+    line-height: 1.2;
 }
 
 .cardapio-meal-name {
-    margin-bottom: 8px;
+    margin-bottom: 7px;
     font-size: 14px;
     line-height: 1.4;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .cardapio-meal-description {
-    min-height: 36px;
+    min-height: 0;
     margin-bottom: 12px;
-    font-size: 13px;
-    line-height: 1.35;
-    color: #202020;
+    color: #555555;
+    font-size: 12.5px;
+    line-height: 1.45;
 }
 
 .cardapio-meal-consumption {
+    padding-top: 10px;
+    border-top: 1px solid #eeeeee;
     color: #d00000;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
 }
 
 .cardapio-empty-day {
-    min-height: 268px;
+    flex: 1;
+    min-height: 246px;
+    padding: 20px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -294,6 +295,7 @@
     gap: 8px;
     color: #999999;
     font-size: 13px;
+    text-align: center;
 }
 
 /* PARTE INFERIOR */
@@ -485,6 +487,7 @@
 
     .cardapio-week-grid {
         overflow-x: auto;
+        padding-bottom: 4px;
     }
 
     .cardapio-day-column {
@@ -527,14 +530,6 @@
 
     .cardapio-top-actions {
         flex-direction: column;
-    }
-
-    .cardapio-tabs {
-        overflow-x: auto;
-    }
-
-    .cardapio-tab {
-        white-space: nowrap;
     }
 
     .cardapio-resume-items {

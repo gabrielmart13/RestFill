@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./produtos.css";
+
 import {
     AlertTriangle,
     CalendarDays,
@@ -326,19 +326,19 @@ function Produtos() {
                         paginaAtual - 1
                 );
             }
-        } catch (error) {
-            console.error(error);
 
+        } catch (error) {
             const mensagem =
                 error?.response?.data?.message ||
-                "Não foi possível excluir o produto.";
+                "Não foi possível desativar o produto.";
 
             setErro(mensagem);
+            setProdutoExcluir(null);
+
         } finally {
             setExcluindo(false);
         }
     };
-
     // =========================================================
     // EXPORTAR CSV
     // =========================================================
@@ -860,35 +860,26 @@ function Produtos() {
                                                 }
                                             </span>
                                         </span>
-
                                         <div className="acoes">
 
                                             <button
-                                                className="btn-editar"
-                                                title="Editar produto"
+                                                className="produto-btn-editar"
                                                 onClick={() =>
                                                     navigate(
                                                         `/produtos/editar/${produto.idProduto}`
                                                     )
                                                 }
                                             >
-                                                <Pencil
-                                                    size={18}
-                                                />
+                                                <Pencil size={18} />
                                             </button>
 
                                             <button
-                                                className="btn-excluir"
-                                                title="Excluir produto"
+                                                className="produto-btn-excluir"
                                                 onClick={() =>
-                                                    setProdutoExcluir(
-                                                        produto
-                                                    )
+                                                    setProdutoExcluir(produto)
                                                 }
                                             >
-                                                <Trash2
-                                                    size={18}
-                                                />
+                                                <Trash2 size={18} />
                                             </button>
 
                                         </div>

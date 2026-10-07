@@ -17,18 +17,66 @@ namespace Restfill.API.Services
         public async Task<Movimentacao> AdicionarMovimentacao(
             Movimentacao movimentacao)
         {
+            var produtos = await _geralRepo.PegarTodos<Produto>();
+
             if (movimentacao.Custo < 0 ||
-                movimentacao.Data == null ||
                 string.IsNullOrWhiteSpace(movimentacao.Tipo) ||
-                movimentacao.Quantidade <= 0 ||
-                movimentacao.IdGerente == null ||
-                movimentacao.IdProduto == null)
+                movimentacao.Quantidade <= 0)
             {
                 throw new ValidationException(
                     "Os dados da movimentação são inválidos.");
             }
 
+            movimentacao.Tipo =
+                movimentacao.Tipo.Trim().ToUpper();
+
+            Produto? produtoEncontrado = null;
+
+            foreach (Produto produto in produtos)
+            {
+                if (movimentacao.IdProduto == produto.IdProduto)
+                {
+                    produtoEncontrado = produto;
+
+                    if (!produto.Ativo)
+                    {
+                        throw new ConflictException(
+                            "Não é possível realizar uma movimentação em um produto desativado.");
+                    }
+
+                    if (movimentacao.Tipo == "ENTRADA")
+                    {
+                        produto.Quantidade += movimentacao.Quantidade;
+                    }
+                    else if (movimentacao.Tipo == "SAIDA")
+                    {
+                        if (movimentacao.Quantidade > produto.Quantidade)
+                        {
+                            throw new ConflictException(
+                                $"Estoque insuficiente. Estoque atual: {produto.Quantidade}.");
+                        }
+
+                        produto.Quantidade -= movimentacao.Quantidade;
+                    }
+                    else
+                    {
+                        throw new ValidationException(
+                            "O tipo da movimentação deve ser ENTRADA ou SAIDA.");
+                    }
+
+                    break;
+                }
+            }
+
+            if (produtoEncontrado == null)
+            {
+                throw new NotFoundException(
+                    "Produto não encontrado.");
+            }
+
             await _geralRepo.Adicionar(movimentacao);
+
+            await _geralRepo.Atualizar(produtoEncontrado);
 
             return movimentacao;
         }

@@ -51,6 +51,13 @@ namespace Restfill.API.Data.Repositories
             return entity;
         }
 
+
+        public Task RemoverSemSalvar<T>(T entity) where T : class
+        {
+            _context.Set<T>().Remove(entity);
+
+            return Task.CompletedTask;
+        }
         public async Task<bool> SalvarMudancasAsync()
         {
             var resultado = await _context.SaveChangesAsync();

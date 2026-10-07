@@ -75,8 +75,7 @@ namespace Restfill.API.Services
 
         public async Task<Refeicao> DeletarRefeicao(int id)
         {
-            var refeicao =
-                await _geralRepo.Pegar<Refeicao>(id);
+            var refeicao = await _geralRepo.Pegar<Refeicao>(id);
 
             if (refeicao == null)
             {
@@ -84,7 +83,28 @@ namespace Restfill.API.Services
                     "Refeição não encontrada.");
             }
 
-            await _geralRepo.Remover(refeicao);
+            var ingredientes = await _geralRepo.PegarTodos<Ingrediente>();
+
+            foreach (Ingrediente ingrediente in ingredientes)
+            {
+                if (ingrediente.IdRefeicao == id)
+                {
+                    await _geralRepo.RemoverSemSalvar(ingrediente);
+                }
+            }
+
+            var itensCardapio = await _geralRepo.PegarTodos<ItemCardapio>();
+
+            foreach (ItemCardapio item in itensCardapio)
+            {
+                if (item.IdRefeicao == id)
+                {
+                    await _geralRepo.RemoverSemSalvar(item);
+                }
+            }
+
+            await _geralRepo.RemoverSemSalvar(refeicao);
+            await _geralRepo.SalvarMudancasAsync();
 
             return refeicao;
         }

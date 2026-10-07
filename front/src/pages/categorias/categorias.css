@@ -437,24 +437,43 @@
         cursor: pointer;
     }
 
-.btn-cancelar {
-    border: 1px solid #dddddd;
-    background: white;
-    color: #222222;
+.produtos-page .acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
-    .btn-cancelar:hover {
-        background: #f7f7f7;
+    .produtos-page .acoes button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border: none;
+        border-radius: 6px;
+        background: transparent !important;
+        box-shadow: none !important;
+        cursor: pointer;
     }
 
-.btn-excluir {
-    border: none;
-    background: #e50909;
-    color: white;
+
+
+.produtos-page .produto-btn-editar {
+    color: #222222 !important;
 }
 
-    .btn-excluir:hover {
-        background: #c80000;
+    .produtos-page .produto-btn-editar:hover {
+        background: #f1f1f1 !important;
+    }
+
+.produtos-page .produto-btn-excluir {
+    color: #e50909 !important;
+}
+
+    .produtos-page .produto-btn-excluir:hover {
+        background: #fff0f0 !important;
     }
 
 .modal-actions button:disabled {
