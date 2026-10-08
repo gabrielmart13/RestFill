@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
     AlertTriangle,
@@ -21,6 +22,8 @@ import StatCard from "../../components/ui/statcard";
 import "./dashboard.css";
 
 function Dashboard() {
+    const navigate = useNavigate();
+
     const [produtos, setProdutos] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [unidades, setUnidades] = useState([]);
@@ -293,7 +296,7 @@ function Dashboard() {
                         <button
                             className="text-action"
                             onClick={() => {
-                                window.location.href = "/produtos";
+                                navigate("/produtos");
                             }}
                         >
                             Ver todos
@@ -330,7 +333,7 @@ function Dashboard() {
                         <button
                             className="view-all-button"
                             onClick={() => {
-                                window.location.href = "/produtos";
+                                navigate("/produtos");
                             }}
                         >
                             Ver todos
@@ -427,7 +430,7 @@ function Dashboard() {
                     <button
                         className="bottom-action"
                         onClick={() => {
-                            window.location.href = "/produtos";
+                            navigate("/produtos");
                         }}
                     >
                         Ver todos os produtos

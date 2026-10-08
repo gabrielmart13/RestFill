@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
     ArrowLeft,
@@ -15,6 +16,8 @@ import unidadeMedidaService from "../../services/unidadeMedidaService";
 import "./ProdutoForm.css";
 
 function ProdutoForm({ modo = "criar", id }) {
+    const navigate = useNavigate();
+
     const editando = modo === "editar";
 
     const [categorias, setCategorias] = useState([]);
@@ -123,7 +126,7 @@ function ProdutoForm({ modo = "criar", id }) {
     };
 
     const voltar = () => {
-        window.location.href = "/produtos";
+        navigate("/produtos");
     };
 
     const salvar = async (event) => {
