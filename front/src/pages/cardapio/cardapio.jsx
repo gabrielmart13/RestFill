@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import cardapioService from "../../services/cardapioService";
-import itemcardapioService from "../../services/itemcardapioService";
+import itemcardapioService from "../../services/itemCardapioService";
 import refeicaoService from "../../services/refeicaoService";
 
 import "./cardapio.css";
