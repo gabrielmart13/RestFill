@@ -10,6 +10,7 @@
         Task<T> Adicionar<T>(T entity) where T : class;
         Task<T> Atualizar<T>(T entity) where T : class;
         Task<T> Remover<T>(T entity) where T : class;
+        Task RemoverSemSalvar<T>(T entity) where T : class;
         Task<bool> SalvarMudancasAsync();
 
     }

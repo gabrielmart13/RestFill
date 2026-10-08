@@ -1,0 +1,524 @@
+.gastos-page {
+    min-height: 100vh;
+    padding: 28px 28px 40px;
+    background: #ffffff;
+    color: #111111;
+}
+
+/* HEADER */
+
+.gastos-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+    .gastos-header h1 {
+        margin: 0 0 6px;
+        font-size: 29px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .gastos-header p {
+        margin: 0;
+        color: #555555;
+        font-size: 14px;
+    }
+
+.gastos-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gastos-week-picker {
+    position: relative;
+    height: 40px;
+    min-width: 245px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 13px;
+    border: 1px solid #dedede;
+    border-radius: 6px;
+    background: #ffffff;
+    font-size: 13px;
+    overflow: hidden;
+}
+
+    .gastos-week-picker input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+.btn-salvar-semana {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 17px;
+    border: none;
+    border-radius: 6px;
+    background: #d00000;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .btn-salvar-semana:hover {
+        background: #b80000;
+    }
+
+    .btn-salvar-semana:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+/* ALERTAS */
+
+.gastos-alerta {
+    margin-bottom: 18px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+    .gastos-alerta.erro {
+        border: 1px solid #efb5b5;
+        background: #fff3f3;
+        color: #c00000;
+    }
+
+    .gastos-alerta.sucesso {
+        border: 1px solid #c8e5cb;
+        background: #f2fbf3;
+        color: #27742e;
+    }
+
+/* CARDS */
+
+.gastos-resumo {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-bottom: 20px;
+}
+
+.gastos-stat {
+    min-height: 114px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 18px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.gastos-stat-icon {
+    width: 51px;
+    height: 51px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff0f0;
+    color: #d00000;
+}
+
+.gastos-stat div:last-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.gastos-stat strong {
+    margin-bottom: 5px;
+    font-size: 22px;
+}
+
+.gastos-stat span {
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.gastos-stat small {
+    color: #777777;
+    font-size: 10px;
+}
+
+/* TABELA CARD */
+
+.gastos-table-card {
+    overflow: hidden;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+/* FILTROS */
+
+.gastos-filtros {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 17px;
+    border-bottom: 1px solid #ececec;
+}
+
+.gastos-search {
+    width: 285px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 11px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    color: #777777;
+}
+
+    .gastos-search:focus-within {
+        border-color: #c90000;
+    }
+
+    .gastos-search input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 13px;
+    }
+
+.gastos-filtros select {
+    height: 38px;
+    min-width: 170px;
+    padding: 0 11px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #222222;
+    font-size: 13px;
+    outline: none;
+}
+
+.btn-filtrar,
+.btn-importar {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 13px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #222222;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .btn-filtrar:hover,
+    .btn-importar:hover {
+        background: #fafafa;
+    }
+
+.btn-importar {
+    margin-left: auto;
+}
+
+/* INFO */
+
+.gastos-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 14px 17px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #eff7ff;
+}
+
+.gastos-info-icon {
+    flex-shrink: 0;
+    color: #438be0;
+}
+
+.gastos-info strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.gastos-info p {
+    margin: 0;
+    color: #555555;
+    font-size: 11px;
+}
+
+/* TABELA */
+
+.gastos-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.gastos-table {
+    width: 100%;
+    min-width: 1250px;
+    border-collapse: collapse;
+}
+
+    .gastos-table th {
+        height: 55px;
+        padding: 0 10px;
+        border-bottom: 1px solid #dedede;
+        color: #222222;
+        font-size: 10px;
+        font-weight: 700;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+        .gastos-table th:first-child {
+            text-align: left;
+        }
+
+        .gastos-table th.col-produto {
+            width: 235px;
+        }
+
+    .gastos-table td {
+        height: 58px;
+        padding: 0 10px;
+        border-bottom: 1px solid #ededed;
+        color: #222222;
+        font-size: 11px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+        .gastos-table td:first-child {
+            text-align: left;
+        }
+
+    .gastos-table tbody tr:hover {
+        background: #fcfcfc;
+    }
+
+/* PRODUTO */
+
+.produto-identidade {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.produto-imagem {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    background: #fafafa;
+    font-size: 19px;
+}
+
+.produto-identidade strong {
+    font-size: 11px;
+}
+
+/* INPUT DIA */
+
+.quantidade-dia {
+    width: 52px;
+    height: 31px;
+    padding: 0 5px;
+    border: 1px solid #d9dfe6;
+    border-radius: 5px;
+    outline: none;
+    background: #ffffff;
+    color: #222222;
+    font-size: 11px;
+    text-align: center;
+}
+
+    .quantidade-dia:focus {
+        border-color: #d00000;
+        box-shadow: 0 0 0 2px rgba(208, 0, 0, 0.06);
+    }
+
+.total-utilizado {
+    font-weight: 600;
+}
+
+.custo-total {
+    font-weight: 600;
+}
+
+/* LIMPAR */
+
+.btn-limpar-produto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #d00000;
+    cursor: pointer;
+}
+
+    .btn-limpar-produto:hover {
+        color: #a90000;
+    }
+
+/* VAZIO */
+
+.gastos-vazio {
+    height: 250px !important;
+    color: #999999 !important;
+    text-align: center !important;
+}
+
+    .gastos-vazio svg {
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    .gastos-vazio strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #555555;
+    }
+
+    .gastos-vazio span {
+        font-size: 11px;
+    }
+
+/* FOOTER */
+
+.gastos-table tfoot td {
+    height: 62px;
+    border-bottom: none;
+    background: #ffffff;
+}
+
+.total-geral-label {
+    padding-right: 20px !important;
+    font-weight: 700;
+    text-align: right !important;
+}
+
+.total-geral-quantidade {
+    font-size: 12px !important;
+    font-weight: 700;
+}
+
+    .total-geral-quantidade span {
+        display: block;
+        margin-top: 2px;
+        font-size: 9px;
+        font-weight: 400;
+        color: #555555;
+    }
+
+.total-geral-custo {
+    font-size: 12px !important;
+    font-weight: 700;
+}
+
+/* LOADING */
+
+.gastos-loading {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: #555555;
+    font-size: 14px;
+}
+
+.gastos-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #eeeeee;
+    border-top-color: #d00000;
+    border-radius: 50%;
+    animation: gastos-spin 0.8s linear infinite;
+}
+
+@keyframes gastos-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1200px) {
+    .gastos-resumo {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gastos-filtros {
+        flex-wrap: wrap;
+    }
+
+    .btn-importar {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .gastos-page {
+        padding: 22px;
+    }
+
+    .gastos-header {
+        flex-direction: column;
+    }
+
+    .gastos-header-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .gastos-week-picker {
+        width: 100%;
+    }
+
+    .btn-salvar-semana {
+        justify-content: center;
+    }
+
+    .gastos-resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .gastos-search {
+        width: 100%;
+    }
+
+    .gastos-filtros select,
+    .btn-filtrar,
+    .btn-importar {
+        width: 100%;
+    }
+}

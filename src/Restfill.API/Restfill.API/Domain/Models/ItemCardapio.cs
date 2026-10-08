@@ -7,17 +7,14 @@ namespace Restfill.API.Domain.Models
     {
         [Key]
         public int IdItemCardapio { get; set; }
-        public string? DiaDaSemana { get; set; }
-        public decimal? QuantidadePrevista { get; set; }
-        public string? Periodo { get; set; }
-        public int? IdCardapio { get; set; }
+        public string DiaDaSemana { get; set; } = null!;
+        public decimal QuantidadePrevista { get; set; }
+        public string Periodo { get; set; } = null!;
 
-        [ForeignKey(nameof(IdCardapio))]
+        public int IdCardapio { get; set; }
         public Cardapio? Cardapio { get; set; }
 
-        public int? IdRefeicao { get; set; }
-
-        [ForeignKey(nameof(IdRefeicao))]
+        public int IdRefeicao { get; set; }
         public Refeicao? Refeicao { get; set; }
     }
 }

@@ -1,0 +1,367 @@
+.produto-form-page {
+    min-height: 100vh;
+    padding: 27px 32px;
+    background: #f7f7f7;
+}
+
+.produto-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+    .produto-breadcrumb span {
+        color: #aaa;
+    }
+
+    .produto-breadcrumb strong {
+        color: #222;
+    }
+
+.produto-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+    .produto-form-header h1 {
+        margin: 0;
+        font-size: 28px;
+    }
+
+    .produto-form-header p {
+        margin: 6px 0 0;
+        color: #777;
+        font-size: 13px;
+    }
+
+.back-button {
+    height: 39px;
+    padding: 0 14px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+    .back-button:hover {
+        border-color: #aaa;
+    }
+
+.produto-form-error {
+    margin-bottom: 18px;
+    padding: 12px 15px;
+    border: 1px solid #fecaca;
+    border-radius: 7px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.produto-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.6fr);
+    gap: 17px;
+}
+
+.form-section {
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 9px;
+    background: white;
+}
+
+    .form-section h2 {
+        margin: 0 0 18px;
+        font-size: 14px;
+    }
+
+.form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field-name {
+    grid-column: span 2;
+}
+
+.field-description {
+    grid-column: span 2;
+}
+
+.field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #222;
+}
+
+    .field label span {
+        color: #e00000;
+    }
+
+    .field label small {
+        color: #888;
+        font-weight: 400;
+    }
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background: white;
+    outline: none;
+    font-family: inherit;
+    font-size: 12px;
+    transition: border-color 0.15s;
+}
+
+.field input,
+.field select {
+    height: 39px;
+    padding: 0 11px;
+}
+
+.field textarea {
+    min-height: 80px;
+    padding: 10px 11px;
+    resize: vertical;
+}
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+        border-color: #e00000;
+    }
+
+.field input:disabled {
+    background: #f3f3f3;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.field-hint {
+    color: #888;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.date-input {
+    position: relative;
+}
+
+    .date-input input {
+        padding-right: 38px;
+    }
+
+    .date-input svg {
+        position: absolute;
+        right: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #777;
+        pointer-events: none;
+    }
+
+/* IMAGEM */
+
+.image-section {
+    min-height: 245px;
+}
+
+.image-upload {
+    min-height: 175px;
+    border: 1px dashed #ccc;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    cursor: pointer;
+    position: relative;
+}
+
+    .image-upload:hover {
+        border-color: #e00000;
+        color: #e00000;
+    }
+
+    .image-upload strong {
+        margin-top: 10px;
+        color: #222;
+        font-size: 12px;
+    }
+
+    .image-upload span {
+        margin-top: 4px;
+        font-size: 11px;
+    }
+
+    .image-upload small {
+        margin-top: 9px;
+        font-size: 9px;
+    }
+
+    .image-upload input {
+        display: none;
+    }
+
+.image-preview {
+    min-height: 175px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .image-preview img {
+        max-width: 100%;
+        height: 135px;
+        object-fit: contain;
+    }
+
+    .image-preview button {
+        border: 1px solid #fecaca;
+        border-radius: 5px;
+        background: white;
+        color: #d00000;
+        padding: 5px 9px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        font-size: 10px;
+    }
+
+.image-warning {
+    margin: 9px 0 0;
+    color: #999;
+    font-size: 9px;
+    line-height: 1.4;
+}
+
+/* ESTOQUE */
+
+.stock-section {
+    grid-column: 1;
+}
+
+.stock-fields {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ADICIONAIS */
+
+.additional-section {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* AÇÕES */
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    padding-top: 3px;
+}
+
+.form-cancel,
+.form-save {
+    height: 40px;
+    padding: 0 17px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-cancel {
+    border: 1px solid #ddd;
+    background: white;
+}
+
+.form-save {
+    border: none;
+    background: #df0000;
+    color: white;
+}
+
+    .form-save:hover {
+        background: #bd0000;
+    }
+
+    .form-save:disabled {
+        opacity: 0.6;
+        cursor: wait;
+    }
+
+.produto-form-loading {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1000px) {
+    .produto-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .additional-section {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .stock-section {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .produto-form-page {
+        padding: 20px;
+    }
+
+    .produto-form-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-fields,
+    .stock-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .field-name,
+    .field-description {
+        grid-column: auto;
+    }
+}

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Restfill.API.Data;
@@ -10,6 +11,7 @@ namespace Restfill.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
+    [Authorize]
     public class ItemCardapioController : ControllerBase
     {
         private readonly IItemCardapioService _itemcardapioService;
@@ -40,7 +42,7 @@ namespace Restfill.API.Controllers
         {
             ItemCardapio itemcardapio = new ItemCardapio
             {
-                DiaDaSemana = request.DiaSemana,
+                DiaDaSemana = request.DiaDaSemana,
                 IdCardapio = request.IdCardapio,
                 IdRefeicao = request.IdRefeicao,
                 QuantidadePrevista = request.QuantidadePrevista,
@@ -55,7 +57,7 @@ namespace Restfill.API.Controllers
         {
             ItemCardapio itemcardapio = new ItemCardapio
             {
-                DiaDaSemana = request.DiaSemana,
+                DiaDaSemana = request.DiaDaSemana,
                 IdCardapio = request.IdCardapio,
                 IdRefeicao = request.IdRefeicao,
                 QuantidadePrevista = request.QuantidadePrevista,

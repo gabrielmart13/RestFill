@@ -7,7 +7,7 @@ using Restfill.API.Data;
 
 #nullable disable
 
-namespace Restfill.API.Migrations
+namespace Restfill.API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -19,19 +19,22 @@ namespace Restfill.API.Migrations
                 .HasAnnotation("ProductVersion", "10.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Restfill.API.Models.Cardapio", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Cardapio", b =>
                 {
                     b.Property<int>("IdCardapio")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Ativo")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdCardapio");
@@ -39,7 +42,7 @@ namespace Restfill.API.Migrations
                     b.ToTable("cardapio", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Categoria", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Categoria", b =>
                 {
                     b.Property<int>("IdCategoria")
                         .ValueGeneratedOnAdd()
@@ -55,6 +58,7 @@ namespace Restfill.API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdCategoria");
@@ -62,16 +66,18 @@ namespace Restfill.API.Migrations
                     b.ToTable("categoria", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Gerente", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Gerente", b =>
                 {
                     b.Property<int>("IdGerente")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Senha")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdGerente");
@@ -79,50 +85,55 @@ namespace Restfill.API.Migrations
                     b.ToTable("gerente", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Ingrediente", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Ingrediente", b =>
                 {
                     b.Property<int>("IdIngrediente")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdProduto")
+                    b.Property<int>("IdProduto")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdRefeicao")
+                    b.Property<int>("IdRefeicao")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Quantidade")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Quantidade")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("IdIngrediente");
 
                     b.HasIndex("IdProduto");
 
-                    b.HasIndex("IdRefeicao");
+                    b.HasIndex("IdRefeicao", "IdProduto")
+                        .IsUnique();
 
                     b.ToTable("ingrediente", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.ItemCardapio", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.ItemCardapio", b =>
                 {
                     b.Property<int>("IdItemCardapio")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("DiaDaSemana")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("IdCardapio")
+                    b.Property<int>("IdCardapio")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdRefeicao")
+                    b.Property<int>("IdRefeicao")
                         .HasColumnType("int");
 
                     b.Property<string>("Periodo")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal?>("QuantidadePrevista")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("QuantidadePrevista")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("IdItemCardapio");
 
@@ -133,31 +144,34 @@ namespace Restfill.API.Migrations
                     b.ToTable("itemcardapio", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Movimentacao", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Movimentacao", b =>
                 {
                     b.Property<int>("IdMovimentacao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Custo")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Custo")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
-                    b.Property<DateTime?>("Data")
+                    b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("IdGerente")
+                    b.Property<int>("IdGerente")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdProduto")
+                    b.Property<int>("IdProduto")
                         .HasColumnType("int");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext");
 
-                    b.Property<decimal?>("Quantidade")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Quantidade")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Tipo")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdMovimentacao");
@@ -169,14 +183,18 @@ namespace Restfill.API.Migrations
                     b.ToTable("movimentacao", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Produto", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Produto", b =>
                 {
                     b.Property<int>("IdProduto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("CustoPorKg")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("CustoPorKg")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext");
@@ -184,19 +202,22 @@ namespace Restfill.API.Migrations
                     b.Property<int?>("IdCategoria")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdUnidadeMedida")
+                    b.Property<int>("IdUnidadeMedida")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal?>("Quantidade")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Quantidade")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
-                    b.Property<decimal?>("QuantidadeMinima")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("QuantidadeMinima")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
-                    b.Property<DateTime?>("Validade")
+                    b.Property<DateTime>("Validade")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("IdProduto");
@@ -208,7 +229,7 @@ namespace Restfill.API.Migrations
                     b.ToTable("produto", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Refeicao", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Refeicao", b =>
                 {
                     b.Property<int>("IdRefeicao")
                         .ValueGeneratedOnAdd()
@@ -218,6 +239,7 @@ namespace Restfill.API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdRefeicao");
@@ -225,16 +247,18 @@ namespace Restfill.API.Migrations
                     b.ToTable("refeicao", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.UnidadeMedida", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.UnidadeMedida", b =>
                 {
                     b.Property<int>("IdUnidadeMedida")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Tipo")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdUnidadeMedida");
@@ -242,60 +266,75 @@ namespace Restfill.API.Migrations
                     b.ToTable("unidademedida", (string)null);
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Ingrediente", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Ingrediente", b =>
                 {
-                    b.HasOne("Restfill.API.Models.Produto", "Produto")
+                    b.HasOne("Restfill.API.Domain.Models.Produto", "Produto")
                         .WithMany()
-                        .HasForeignKey("IdProduto");
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("Restfill.API.Models.Refeicao", "Refeicao")
+                    b.HasOne("Restfill.API.Domain.Models.Refeicao", "Refeicao")
                         .WithMany()
-                        .HasForeignKey("IdRefeicao");
+                        .HasForeignKey("IdRefeicao")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Produto");
 
                     b.Navigation("Refeicao");
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.ItemCardapio", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.ItemCardapio", b =>
                 {
-                    b.HasOne("Restfill.API.Models.Cardapio", "Cardapio")
+                    b.HasOne("Restfill.API.Domain.Models.Cardapio", "Cardapio")
                         .WithMany()
-                        .HasForeignKey("IdCardapio");
+                        .HasForeignKey("IdCardapio")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("Restfill.API.Models.Refeicao", "Refeicao")
+                    b.HasOne("Restfill.API.Domain.Models.Refeicao", "Refeicao")
                         .WithMany()
-                        .HasForeignKey("IdRefeicao");
+                        .HasForeignKey("IdRefeicao")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Cardapio");
 
                     b.Navigation("Refeicao");
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Movimentacao", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Movimentacao", b =>
                 {
-                    b.HasOne("Restfill.API.Models.Gerente", "Gerente")
+                    b.HasOne("Restfill.API.Domain.Models.Gerente", "Gerente")
                         .WithMany()
-                        .HasForeignKey("IdGerente");
+                        .HasForeignKey("IdGerente")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("Restfill.API.Models.Produto", "Produto")
+                    b.HasOne("Restfill.API.Domain.Models.Produto", "Produto")
                         .WithMany()
-                        .HasForeignKey("IdProduto");
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Gerente");
 
                     b.Navigation("Produto");
                 });
 
-            modelBuilder.Entity("Restfill.API.Models.Produto", b =>
+            modelBuilder.Entity("Restfill.API.Domain.Models.Produto", b =>
                 {
-                    b.HasOne("Restfill.API.Models.Categoria", "Categoria")
+                    b.HasOne("Restfill.API.Domain.Models.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("IdCategoria");
+                        .HasForeignKey("IdCategoria")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Restfill.API.Models.UnidadeMedida", "UnidadeMedida")
+                    b.HasOne("Restfill.API.Domain.Models.UnidadeMedida", "UnidadeMedida")
                         .WithMany()
-                        .HasForeignKey("IdUnidadeMedida");
+                        .HasForeignKey("IdUnidadeMedida")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Categoria");
 

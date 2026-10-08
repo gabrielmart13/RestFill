@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restfill.API.Data;
 using Restfill.API.Domain.DTOs.RefeicaoDTO;
@@ -9,6 +10,7 @@ namespace Restfill.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RefeicaoController : ControllerBase
     {
         private readonly IRefeicaoService _refeicaoService;
