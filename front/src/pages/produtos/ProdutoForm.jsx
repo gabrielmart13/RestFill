@@ -12,7 +12,7 @@ import produtoService from "../../services/produtoService";
 import categoriaService from "../../services/categoriaService";
 import unidadeMedidaService from "../../services/unidadeMedidaService";
 
-import "./produtoForm.css";
+import "./ProdutoForm.css";
 
 function ProdutoForm({ modo = "criar", id }) {
     const editando = modo === "editar";

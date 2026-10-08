@@ -12,7 +12,7 @@ import {
 
 import refeicaoService from "../../services/refeicaoService";
 import ingredienteService from "../../services/ingredienteService";
-import itemcardapioService from "../../services/itemcardapioService";
+import itemcardapioService from "../../services/itemCardapioService";
 import produtoService from "../../services/produtoService";
 import unidadeMedidaService from "../../services/unidadeMedidaService";
 import cardapioService from "../../services/cardapioService";
