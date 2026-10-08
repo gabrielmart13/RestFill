@@ -16,7 +16,7 @@ import produtoService from "../../services/produtoService";
 import categoriaService from "../../services/categoriaService";
 import unidadeMedidaService from "../../services/unidadeMedidaService";
 
-import StatCard from "../../components/ui/StatCard";
+import StatCard from "../../components/ui/statcard";
 
 import "./dashboard.css";
 
